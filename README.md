@@ -1,5 +1,5 @@
 # TrumpScript
-Making programming great again
+Making Python great again
 
 ## Mission
 TrumpScript is language based upon the illustrious Donald Trump. As the undeniably best presidential candidate in the 2016 language, we found that the current field of programming languages does not include any that Trump's glorious golden combover would approve of.
