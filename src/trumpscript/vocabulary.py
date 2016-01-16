@@ -1,36 +1,36 @@
-import urllib.request
 import re
+import urllib.request
 
 __author__ = 'github.com/samshadwell'
 
 ENGLISH_URL = "https://gist.githubusercontent.com/deekayen/4148741/raw/1e575985da4e9284e8cf8c53b7fe4ebca843df4a/1-1000.txt"
 TRUMP_URL = "http://languagelog.ldc.upenn.edu/myl/TrumpAll.hist"
 ADDITIONAL = ["hillary", "clinton",
-               "martin", "omalley",
-               "bernie", "sanders",
-               "jeb", "bush",
-               "ben", "carson",
-               "chris", "christie",
-               "ted", "cruz",
-               "carly", "fiorina",
-               "jim", "gilmore",
-               "mike", "huckabee",
-               "john", "kasich",
-               "rand", "paul",
-               "marco", "rubio",
-               "rick", "santorum",
-               "donald", "trump",
-               "barack", "obama",
-               "joe", "biden",
-               "ronald", "reagan",
-               "vladimir", "putin"]
+              "martin", "omalley",
+              "bernie", "sanders",
+              "jeb", "bush",
+              "ben", "carson",
+              "chris", "christie",
+              "ted", "cruz",
+              "carly", "fiorina",
+              "jim", "gilmore",
+              "mike", "huckabee",
+              "john", "kasich",
+              "rand", "paul",
+              "marco", "rubio",
+              "rick", "santorum",
+              "donald", "trump",
+              "barack", "obama",
+              "joe", "biden",
+              "ronald", "reagan",
+              "vladimir", "putin"]
 
 
-def get_allowed_words(filename):
+def get_allowed_words(filename) -> None:
     """
     Constructs a set of all allowed words and returns it
     :param filename: the file to write the words to once they're compiled
-    :return: the set of allowed words
+    :return: None, writes to the file specified
     """
 
     # Regex for words that are composed only of letters
@@ -67,11 +67,15 @@ def add_words(word_set, url, line_function) -> None:
     assert isinstance(url, str)
     assert hasattr(line_function, '__call__')
 
+    # Open the URL, decode it as a string
     response = urllib.request.urlopen(url)
     data = response.read()
     text = data.decode('utf-8')
+
+    # Process each line
     for line in text.split('\n'):
         word = line_function(line)
+        # Only add words that are non-null
         if word is not None:
             word_set.add(word)
 
