@@ -1,0 +1,5 @@
+make politics 10000000
+As Long as : politics less 101000000 !
+I'll tell you : 101000000 - politics !
+make politics : politics + 10000000 !
+make America great.
