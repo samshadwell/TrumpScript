@@ -1,0 +1,48 @@
+RULES:
+No import statements (or requires a protective tariff)
+Booleans: true -> fact, false -> lie
+Not portable
+Not compatible with PC
+Variable names are English only, and either short or popular words only
+Don't run if file contains "Hillary", "Muslim", "Mexico", etc...
+Error messages are all Trump quotes
+No floating point numbers, America doesn't do things halfway
+$4B always converted to $10B
+"Yell" or "Exclaim" are the prints to std out
+America = Great is the equivalent of exit(0)
+Strings that are yelled, or all strings can only be uppercase
+Numbers have to be greater than $1mill
+No build-in random generation
+"Build a fence" should do something ???
+For loop could be "Get 10 Mexicans to build a wall"
+Start closure with ':', end it with '!'
+Use 'x' as multiplication?
+Division always rounds up
+Periods are our 'newline' characters
+Assignment is done via "x is y" and "Make x <- y"
+Equality check: put "?" at end of word
+"Guarantee" defines a function
+"Do" calls a function
+Null is "Jeb"?
+
+DEMO:
+FizzBuzz = Fiorina Bush
+
+KEYWORD MAPPING:
+None -> Jeb
+False -> lies
+True -> truth, fact
+and -> AND
+assert -> absolutely
+break -> capiche
+def -> guarantee
+if, elif, else -> if, else if, else
+is -> is
+not -> not
+or -> or
+pass -> ???
+return -> ???
+while -> as long as
+
+OTHER:
+Throw away meaningless words.
