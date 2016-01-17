@@ -2,39 +2,15 @@
 # 1/16/2016
 
 import re
-
-# Token types
-T_Plus = 0
-T_Minus = 1
-T_Times = 2
-T_Over = 3
-T_LParen = 4
-T_RParen = 5 
-T_LBrace = 6
-T_RBrace = 7
-
-T_Is = 8
-T_If = 9
-T_Else = 10
-
-T_True = 11
-T_False = 12
-T_And = 13
-T_Or = 14
-T_Not = 15
-
-T_Word = 16
-T_Num = 17
-T_Quote = 18
-
-T_Make = 19
-T_Question = 20
+import sys
+import random
+from src.trumpscript.constants import *
 
 
 class Tokenizer:
 
     @staticmethod
-    def toke(token_type, token_value, line):
+    def toke(token_type, token_value, line) -> dict:
         """
         Create a mapping for the given token
         :param token_type: the type of the token
@@ -45,7 +21,7 @@ class Tokenizer:
         return {"type": token_type, "value": token_value, "line": line}
 
     @staticmethod
-    def tokenize_file(filename):
+    def tokenize_file(filename) -> list:
         """
         Tokenize the given file
         :param filename: the file to tokenize
@@ -78,6 +54,10 @@ class Tokenizer:
                     tokens.append(Tokenizer.toke(T_Times, None, line))
                 elif c == "/":
                     tokens.append(Tokenizer.toke(T_Over, None, line))
+                elif c == "<":
+                    tokens.append(Tokenizer.toke(T_Less, None, line))
+                elif c == ">":
+                    tokens.append(Tokenizer.toke(T_Greater, None, line))
 
                 # Closures and precedence
                 elif c == ",":
@@ -109,9 +89,8 @@ class Tokenizer:
                     while data[i].isalpha() or data[i] == "'":
                         word += data[i]
                         i += 1
-                    if not endword.match(word):
-                        # TODO: malformed word error
-                        pass
+                    if not endword.match(data[i]):
+                        Tokenizer._error(line, 'nonword')
                     i -= 1  # Read one char too many, readjust.
 
                     # Keywords
@@ -133,6 +112,8 @@ class Tokenizer:
                         tokens.append(Tokenizer.toke(T_Or, None, line))
                     elif word == "make":
                         tokens.append(Tokenizer.toke(T_Make, None, line))
+                    elif word == "tell" or word == "say":
+                        tokens.append(Tokenizer.toke(T_Print, None, line))
 
                     # English form of the operators
                     elif word == "plus":
@@ -143,6 +124,10 @@ class Tokenizer:
                         tokens.append(Tokenizer.toke(T_Times, None, line))
                     elif word == "over":
                         tokens.append(Tokenizer.toke(T_Over, None, line))
+                    elif word == "less" or word == "fewer" or word == "smaller":
+                        tokens.append(Tokenizer.toke(T_Less, None, line))
+                    elif word == "more" or word == "greater" or word == "larger":
+                        tokens.append(Tokenizer.toke(T_Greater, None, line))
 
                     # Otherwise, it's just a word, interpreting is the lexer's job
                     else:
@@ -156,7 +141,7 @@ class Tokenizer:
                         quote += data[i]
                         i += 1
                         if i >= len(data):
-                            # TODO: quote that doesnt end error
+                            Tokenizer._error(line, 'unterminated_quote')
                             pass
                     tokens.append(Tokenizer.toke(T_Quote, quote, line))
 
@@ -166,3 +151,19 @@ class Tokenizer:
                     # error("invalid character: %r" % c)
                 i += 1
             return tokens
+
+    @staticmethod
+    def _error(line, message_code) -> None:
+        """
+        Prints the error message and then aborts the program
+        :param message: error message to print
+        :return: None
+        """
+
+        print("Parsing error:")
+        print("What are you doing on line " + str(line) + "?")
+        if message_code in ERROR_CODES:
+            print(random.choice(ERROR_CODES[message_code]))
+        else:
+            print(random.choice(ERROR_CODES['default']))
+        sys.exit(2)

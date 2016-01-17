@@ -43,6 +43,10 @@ or -> or
 pass -> ???
 return -> ???
 while -> as long as
+print -> tell, say
+
+< -> less, fewer, smaller
+> -> more, greater, larger
 
 OTHER:
 Throw away meaningless words.
