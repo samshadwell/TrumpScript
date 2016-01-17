@@ -50,3 +50,5 @@ print -> tell, say
 
 OTHER:
 Throw away meaningless words.
+
+Allow a couple of different variations on the ending

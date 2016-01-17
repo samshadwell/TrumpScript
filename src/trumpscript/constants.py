@@ -34,10 +34,14 @@ T_While = 53
 
 # Error messages
 ERROR_CODES = {
-    'unterminated_quote': ["And, believe me, if I win, if I become President, that will end."],
+    'unterminated_quote': ["And, believe me, if I win, if I become President, that will end.", "Anyone who thinks my \
+                           story is near over is sadly mistaken."],
     'nonword': ["This is a country where we speak English",
                 "We have a country where to assimilate you have to speak English"],
+    'badword': ["Trump doesn't want to hear it"],
     'default': ["You know, it really doesn’t matter what the media write as long as you’ve got a young and beautiful \
                 piece of ass.", "The concept of global warming was created by and for the Chinese in order to make \
-                U.S. manufacturing non-competitive.", "Listen you motherfucker, we're going to tax you 25 percent!"]
+                U.S. manufacturing non-competitive.", "Listen you motherfucker, we're going to tax you 25 percent!"],
+    'os': ["Windows? 'The big problem this country has is being PC'"],
+    'freedom': ["Trump will ensure that 'America is great'"]
 }

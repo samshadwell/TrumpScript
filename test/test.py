@@ -27,10 +27,9 @@ def test_file(filename, expected):
 
 
 test_file("test_files/toupee.txt", [T_Make, T_Word, T_Num,
-                                    T_While, T_LBrace, T_Word, T_Less, T_Num, T_RBrace,
-                                    T_Word, T_Print, T_Word, T_LBrace, T_Num, T_Minus, T_Word, T_RBrace,
-                                    T_Make, T_Word, T_LBrace, T_Word, T_Plus, T_Num, T_RBrace,
-                                    T_Make, T_Word, T_Word])
+                                    T_While, T_LParen, T_Word, T_Less, T_Num, T_RParen,
+                                    T_Print, T_LParen, T_Num, T_Minus, T_Word, T_RParen,
+                                    T_Make, T_Word, T_LParen, T_Word, T_Plus, T_Num, T_RParen])
 
 # These two exit the program (correctly)
 # test_file("test_files/nonterm_quote.txt", [])

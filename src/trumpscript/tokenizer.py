@@ -1,6 +1,7 @@
 # TrumpScript Tokenizer
 # 1/16/2016
 
+import os
 import random
 import re
 import sys
@@ -30,10 +31,20 @@ class Tokenizer:
         :return: The tokens in the file
         """
 
+        Tokenizer._no_pc()
         tokens = Tokenizer._first_pass(filename)
         tokens = Tokenizer._second_pass(tokens)
 
         return tokens
+
+    @staticmethod
+    def _no_pc() -> None:
+        """
+        Make sure the currently-running OS is not Windows
+        :return:
+        """
+        if os.name == 'nt':
+            Tokenizer._error(0, 'os')
 
     @staticmethod
     def _first_pass(filename) -> list:
@@ -101,10 +112,10 @@ class Tokenizer:
                 # Words and keywords
                 elif c.isalpha():
                     word = ""
-                    while data[i].isalpha() or data[i] == "'":
+                    while i < len(data) and (data[i].isalpha() or data[i] == "'"):
                         word += data[i]
                         i += 1
-                    if not endword.match(data[i]):
+                    if i < len(data) and not endword.match(data[i]):
                         Tokenizer._error(line, 'nonword')
                     i -= 1  # Read one char too many, readjust.
 
@@ -162,8 +173,7 @@ class Tokenizer:
 
                 else:
                     pass
-                    # TODO: errors
-                    # error("invalid character: %r" % c)
+                    Tokenizer._error(line, 'nonword')
                 i += 1
             return tokens
 
@@ -177,8 +187,7 @@ class Tokenizer:
 
         # Make sure we do "America is great"
         if not Tokenizer._check_for_freedom(tokens):
-            # TODO Error because freedom
-            pass
+            Tokenizer._error(tokens[-1]['line'], 'freedom')
 
         # Convert "as long as" to while
         tokens = Tokenizer._combine_whiles(tokens)
@@ -201,8 +210,7 @@ class Tokenizer:
 
         for token in tokens:
             if token['type'] == T_Word and token['value'] not in ALLOWED:
-                # TODO throw an error here
-                print("Word: " + token['value'] + " not English")
+                Tokenizer._error(token['line'], 'nonword')
 
     @staticmethod
     def _get_rid_of_commies(tokens) -> None:
@@ -214,8 +222,7 @@ class Tokenizer:
 
         for token in tokens:
             if token['type'] == T_Word and token['value'] in DISALLOWED:
-                # TODO throw and error here
-                print("Word: " + token['value'] + " not allowed")
+                Tokenizer._error(token['line'], 'disallowed')
 
     @staticmethod
     def _combine_whiles(tokens) -> list:
@@ -264,12 +271,15 @@ class Tokenizer:
         # Tokens for "America is great"
         expected = [Tokenizer.toke(T_Word, 'america', 0),
                     Tokenizer.toke(T_Is, None, 0),
-                    Tokenizer.toke(T_Is, 'great', 0)]
+                    Tokenizer.toke(T_Word, 'great', 0)]
 
         # Make sure our types and values match each of the expected
         for idx in range(3):
             if expected[idx]['type'] != last_three[idx]['type'] or expected[idx]['value'] != last_three[idx]['value']:
                 return False
+
+        for idx in range(3):
+            tokens.pop()
 
         return True
 
