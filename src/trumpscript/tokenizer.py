@@ -30,6 +30,7 @@ T_Quote = 18
 T_Make = 19
 T_Question = 20
 
+
 class Tokenizer:
 
     @staticmethod

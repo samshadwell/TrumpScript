@@ -30,7 +30,7 @@ FizzBuzz = Fiorina Bush
 
 KEYWORD MAPPING:
 None -> Jeb
-False -> lies
+False -> lies, nonsense
 True -> truth, fact
 and -> AND
 assert -> absolutely
