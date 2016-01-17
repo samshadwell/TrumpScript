@@ -42,6 +42,7 @@ The exciting parts:
 * Assignment can also be done via the 'make' keyword. E.g. 'Make America great' assigns the value of the variable 'great' to 'America'
 * Printing to stdout can be done via 'tell' or 'say'
 * While loops are denoted via 'as long as'. And that's the only type of loop you need anyway.
+* If a 'word' (so anything that could be a variable name) is deemed unnecessary by the compiler, it's simply thrown away. So you can make truly self documenting code, or code that appear to read very very similarly to real speeches by the big man himself. You can find some interesting examples in our 'test/test_files' directory
 
 ## History
 Created for HackRice (hack.rice.edu) by:
