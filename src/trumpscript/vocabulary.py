@@ -7,7 +7,7 @@ ENGLISH_URL = \
     "https://gist.githubusercontent.com/deekayen/4148741/raw/1e575985da4e9284e8cf8c53b7fe4ebca843df4a/1-1000.txt"
 TRUMP_URL = "http://languagelog.ldc.upenn.edu/myl/TrumpAll.hist"
 ADDITIONAL = ["hillary", "clinton",
-              "martin", "omalley",
+              "martin", "o'malley",
               "bernie", "sanders",
               "jeb", "bush",
               "ben", "carson",
@@ -35,7 +35,7 @@ def get_allowed_words(filename) -> None:
     """
 
     # Regex for words that are composed only of letters
-    word_regex = re.compile('^[A-Za-z]+$')
+    word_regex = re.compile('^[A-Za-z]+\'?[A-Za-z]+$')
 
     # Get a set of all the words
     words = set([])

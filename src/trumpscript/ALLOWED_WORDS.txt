@@ -1,4 +1,3 @@
-a
 abandoned
 able
 aborted
@@ -87,6 +86,7 @@ appropriate
 arabia
 are
 area
+aren't
 arm
 army
 around
@@ -258,6 +258,7 @@ camp
 campaign
 campaigns
 can
+can't
 canada
 candidate
 candidates
@@ -407,6 +408,7 @@ cost
 costs
 cotton
 could
+couldn't
 count
 counter
 countries
@@ -491,6 +493,7 @@ devaluing
 develop
 dictionary
 did
+didn't
 die
 differ
 difference
@@ -515,6 +518,7 @@ do
 doctor
 doctors
 does
+doesn't
 dog
 dogs
 doing
@@ -522,6 +526,7 @@ dollar
 dollars
 domestic
 don
+don't
 donald
 done
 donnie
@@ -544,7 +549,6 @@ dump
 dumping
 during
 dying
-e
 each
 ear
 early
@@ -570,6 +574,7 @@ element
 elevators
 elite
 else
+else's
 embarrass
 employ
 employed
@@ -825,8 +830,10 @@ hat
 hate
 hating
 have
+haven't
 having
 he
+he'd
 head
 headquarters
 heads
@@ -888,7 +895,7 @@ hunt
 hurry
 husband
 hyatt
-i
+i'd
 ice
 idea
 idiots
@@ -948,6 +955,7 @@ is
 isis
 islamic
 island
+isn't
 israel
 issues
 it
@@ -997,7 +1005,6 @@ know
 knowing
 knows
 komatsu
-l
 la
 labor
 ladies
@@ -1252,6 +1259,8 @@ numbers
 numeral
 nurses
 nutshell
+o'donnell
+o'malley
 obama
 obamacare
 object
@@ -1276,7 +1285,6 @@ oil
 ok
 okay
 old
-omalley
 on
 once
 one
@@ -1566,7 +1574,6 @@ rule
 run
 running
 russia
-s
 sad
 sadly
 safe
@@ -1648,6 +1655,7 @@ shore
 short
 should
 shoulder
+shouldn't
 shout
 show
 showed
@@ -1881,6 +1889,7 @@ there
 therefore
 these
 they
+they'd
 thick
 thin
 thing
@@ -2028,6 +2037,7 @@ warm
 was
 wash
 washington
+wasn't
 waste
 watch
 watched
@@ -2037,6 +2047,7 @@ wave
 way
 ways
 we
+we'd
 weak
 weaker
 weakness
@@ -2053,6 +2064,7 @@ welfare
 well
 went
 were
+weren't
 west
 wharton
 what
@@ -2090,6 +2102,7 @@ within
 without
 woman
 women
+won't
 wonder
 wonderful
 wood
@@ -2105,6 +2118,7 @@ worse
 worst
 worth
 would
+wouldn't
 wounded
 wow
 write
@@ -2125,6 +2139,7 @@ yesterday
 yet
 york
 you
+you'd
 young
 your
 yourself
