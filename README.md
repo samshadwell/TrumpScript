@@ -1,4 +1,4 @@
-# TrumpScript
+# TrumpScript <img src="https://raw.github.com/samshadwell/TrumpScript/master/TrumpScript.jpg" width="50px" height="50px" />
 Making Python great again
 
 ## Mission
