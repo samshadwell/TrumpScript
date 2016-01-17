@@ -1,0 +1,37 @@
+Abstract grammar for TrumpScript
+{
+	mod = Module(stmt* body)
+
+	stmt = Assign(expr* targets, expr value)
+ 	      | Print(expr? dest, expr* values, bool nl) <- secretly represented by Call, which makes it an expr
+	      | While(expr test, stmt* body, stmt* orelse)
+	      | If(expr test, stmt* body, stmt* orelse)
+	      | Expr(expr value)
+
+	      -- BoolOp() can use left & right?
+	expr = BoolOp(boolop op, expr* values)
+	     | BinOp(expr left, operator op, expr right)
+	     | UnaryOp(unaryop op, expr operand)
+	     | IfExp(expr test, expr body, expr orelse)
+
+	     -- need sequences for compare to distinguish between
+	     -- x < 4 < 3 and (x < 4) < 3
+
+	     | Compare(expr left, cmpop* ops, expr* comparators)
+	     | Call(expr func, expr* args, keyword* keywords,
+			 expr? starargs, expr? kwargs)
+	     | Repr(expr value)
+	     | Num(object n) -- a number as a PyObject.
+	     | Str(string s) -- need to specify raw, unicode, etc?
+	     | Name(identifier id, expr_context ctx)
+
+	expr_context = Load | Store (| Param?)
+
+	boolop = And | Or
+
+	operator = Add | Sub | Mult | Div
+
+	unaryop = Not
+
+	cmpop = Eq | Lt | Gt (| NotEq | GtE | LtE can all be built using not/or)
+}
