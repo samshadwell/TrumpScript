@@ -7,12 +7,9 @@ from src.trumpscript.constants import *
 
 
 class Parser:
+
     def parse(self, tokens):
         tokens = self.pre_parse(tokens)
-        body_list = []
-        i = 0
-        while len(tokens) > 1:
-            pass
 
         def peek():
             return tokens[0]["type"]
@@ -23,6 +20,32 @@ class Parser:
             else:
                 # TODO: Error
                 pass
+
+        #Mod
+        def handle_mod():
+            body_list = []
+            while len(tokens) > 1: # TODO: determine whether we are keeping the end marker
+                body_list.append(handle_anything())
+            return Module(body=body_list)
+
+        #Obnoxious coverage
+        def handle_anything():
+            start = peek()
+            if start == T_Word:
+                return handle_word()
+            elif start == T_Make:
+                return handle_make()
+            elif start == T_LBrace:
+                return handle_brace()
+            elif start == T_LParen:
+                return handle_paren()
+            elif start == T_If:
+                return handle_if()
+            else:
+                return None
+                #TODO: finish this
+
+
 
         # Stmt
         def handle_brace():
@@ -74,7 +97,7 @@ class Parser:
             token = consume(T_While)
             conditional = handle_paren()
             body = handle_brace()
-            # TODO: build tree from outputs
+            return While(test=conditional,body=body, orelse=[])
 
         # If
         def handle_if():
@@ -85,7 +108,7 @@ class Parser:
                 orelse = handle_else()
             else:
                 orelse = []
-            return If(conditional, body, orelse)
+            return If(test=conditional,body=body, orelse=orelse)
 
         # orelse piece of if
         def handle_else():
@@ -142,7 +165,8 @@ class Parser:
             token = consume(T_False)
             return Name(idx="False", ctx=Load)
 
-        return body_list
+        #Build the entirety of the Abstract Syntax tree
+        return handle_mod()
 
     @staticmethod
     def pre_parse(tokens) -> list:
