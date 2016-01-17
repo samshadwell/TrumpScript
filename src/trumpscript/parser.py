@@ -26,7 +26,13 @@ class Parser:
             body_list = []
             while len(tokens) > 1:  # TODO: determine whether we are keeping the end marker
                 # print("anything")
-                body_list.append(handle_anything())
+                state = handle_anything()
+                if isinstance(state, expr):
+                    state = Expr(value=state)
+                body_list.append(state)
+            for statement in body_list:
+                # print(statement)
+                fix_missing_locations(statement)
             return Module(body=body_list)
 
         # Obnoxious coverage
@@ -43,10 +49,20 @@ class Parser:
                 return handle_paren()
             elif start == T_If:
                 return handle_if()
+            elif start == T_While:
+                return handle_while()
             elif start == T_Print:
                 return handle_print()
             elif start == T_True:
                 return handle_true()
+            elif start == T_False:
+                return handle_false()
+            elif start == T_Not:
+                return handle_not()
+            elif start == T_Quote:
+                return handle_quote()
+            elif start == T_Num:
+                return handle_num()
             else:
                 print("fuck that's wrong :" + str(start))
                 quit()
@@ -67,7 +83,7 @@ class Parser:
             return statements
 
         # Expr
-        def handle_paren():
+        def handle_paren() -> expr:
             consume(T_LParen)
             expression = handle_anything()
             consume(T_RParen)
@@ -76,15 +92,64 @@ class Parser:
         # Assign
         def handle_make():
             token = consume(T_Make)
+
             variable = consume(T_Word)
             followup = peek()  # Check the type of the next token to see if it's acceptable
-            # TODO: enumerate all the cases here
-            pass
+            if followup == T_Word:
+                tok = consume(T_Word)
+                val = Name(id=tok["value"], ctx=Load())
+            elif followup == T_LParen:
+                val = handle_paren()
+            elif followup == T_True:
+                val = handle_true()
+                print(val)
+            elif followup == T_False:
+                val = handle_false()
+            elif followup == T_Not:
+                val = handle_not()
+            elif followup == T_Quote:
+                val = handle_quote()
+            elif followup == T_Num:
+                val = handle_num()
+            else:
+                print("make error")
+                # TODO: get real errors srsly
+                val = "garbageerror"
+            target = Name(id=variable["value"], ctx=Store())
+            return Assign(targets=[target], value=val)
+
+
 
         ##Both Assign and EQ because why the hell not guys
-        def handle_is():
-            # TODO: this whole thing
-            pass
+        def handle_is(left):
+            consume(T_Is)
+            followup = peek()  # Check the type of the next token to see if it's acceptable
+            if followup == T_Word:
+                tok = consume(T_Word)
+                right = Name(id=tok["value"], ctx=Load())
+            elif followup == T_LParen:
+                right = handle_paren()
+            elif followup == T_True:
+                right = handle_true()
+            elif followup == T_False:
+                right = handle_false()
+            elif followup == T_Not:
+                right = handle_not()
+            elif followup == T_Quote:
+                right = handle_quote()
+            elif followup == T_Num:
+                right = handle_num()
+            else:
+                right = "ERROR"
+                # TODO: real errors
+                print("is_error")
+            if peek() == T_Question:
+                consume(T_Question)
+                first = Name(id=left["value"], ctx=Load())
+                return Compare(left=first, ops=[Eq()], comparators=[right])
+            else:
+                target = Name(id=left["value"], ctx=Store())
+                return Assign(targets=[target], value=right)
 
         # Print
         def handle_print():
@@ -147,13 +212,21 @@ class Parser:
 
         # Not
         def handle_not():
-            # TODO: handle not
-            pass
-
-        # Compare
-        def handle_compare():
-            # TODO: handle compare
-            pass
+            consume(T_Not)
+            nxt = peek()
+            if nxt == T_LParen:
+                result = handle_paren()
+            elif nxt == T_Word:
+                result = handle_word()
+            elif nxt == T_False:
+                result = handle_false()
+            elif nxt == T_True:
+                result = handle_true()
+            else:
+                result = "error"
+                print("Error in not")
+                #TODO: real errors, seriously.
+            return UnaryOp(op=Not(),operand=result)
 
         # Num
         def handle_num():
@@ -169,20 +242,24 @@ class Parser:
 
         # Name
         def handle_word():
-            # TODO: this whole shit
-            pass
+            token = consume(T_Word)
+            nxt = peek()
+            if nxt == T_Is:
+                return handle_is(token)
+            else:
+                return Name(id=token["value"], ctx=Load())
 
         # True
         def handle_true():
             token = consume(T_True)
-            return Name(id="True", ctx=Load())
+            return NameConstant(value=True)
 
         # False
         def handle_false():
             token = consume(T_False)
-            return Name(id="False", ctx=Load())
+            return NameConstant(value=False)
 
-        #Build the entirety of the Abstract Syntax tree
+        # Build the entirety of the Abstract Syntax tree
         return handle_mod()
 
     @staticmethod

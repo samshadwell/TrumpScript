@@ -9,11 +9,20 @@ from src.trumpscript.tokenizer import *
 
 class Compiler:
 
-    def compile(self, source):
-        tk = Tokenizer()
-        prs = Parser()
+    def __init__(self):
+        self.tk = Tokenizer()
+        self.prs = Parser()
 
-        modu = prs.parse(tk.tokenize(source))
+    def compile(self, source):
+
+        modu = self.parse(self.tokenize(source))
 
         fix_missing_locations(modu)
+        print("Compiled, starting execution\n-------------------\n")
         exec(compile(modu, filename="<ast>", mode="exec"))
+
+    def parse(self, tokens):
+        return self.prs.parse(tokens)
+
+    def tokenize(self, filename):
+        return self.tk.tokenize(filename)
