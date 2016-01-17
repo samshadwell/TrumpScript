@@ -49,6 +49,7 @@ print -> tell, say
 > -> more, greater, larger
 
 OTHER:
-Throw away meaningless words.
 
 Allow a couple of different variations on the ending
+$4.5B always converted to $10B
+Numbers have to be greater than $1mill

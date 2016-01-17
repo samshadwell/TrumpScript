@@ -198,7 +198,30 @@ class Tokenizer:
         # Check for disallowed words
         Tokenizer._get_rid_of_commies(tokens)
 
+        # Ensure all numbers are greater than 1 million, and that 4.5B is converted to 10B
+        Tokenizer._fudge_the_numbers(tokens)
+
         return tokens
+
+    @staticmethod
+    def _fudge_the_numbers(tokens) -> None:
+        """
+        Make sure all numbers have values in excess of 1M, and convert 4.5B to 10B if we encounter it
+        :param tokens: The tokens to enforce these rules on
+        :return: None, throws an error is rules are violated. Also mutates tokens in-place
+        """
+
+        million = 10 ** 6
+        forbes_worth = 4.5 * 10 ** 9
+        real_worth = 10 * 10 ** 9
+
+        for token in tokens:
+            if token['type'] == T_Num:
+                value = token['value']
+                if value < million:
+                    Tokenizer._error(token['line'], 'too_small')
+                if value == forbes_worth:
+                    token['value'] = real_worth
 
     @staticmethod
     def _ensure_freedom(tokens) -> None:

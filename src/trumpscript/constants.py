@@ -43,5 +43,6 @@ ERROR_CODES = {
                 piece of ass.", "The concept of global warming was created by and for the Chinese in order to make \
                 U.S. manufacturing non-competitive.", "Listen you motherfucker, we're going to tax you 25 percent!"],
     'os': ["Windows? 'The big problem this country has is being PC'"],
-    'freedom': ["Trump will ensure that 'America is great'"]
+    'freedom': ["Trump will ensure that 'America is great'"],
+    'too_small': ["I'm really rich.", "Part of the beauty of me is I'm very rich."]
 }
