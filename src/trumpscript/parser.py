@@ -1,7 +1,6 @@
 # Parser for TrumpScript
 # 1/16/2016
 
-from ast import *
 from src.trumpscript.constants import *
 
 
@@ -45,15 +44,15 @@ class Parser:
 
             # Check if we need to drop a junk word
             if token[t] == T_Word:
-                if token["value"] not in vars:
+                if token["value"] not in variables:
                     if prev[t] == T_Make:
-                        variables.add([token["value"]])
+                        variables.add(token["value"])
                     elif nxt[t] == T_Is:
                         variables.add(token["value"])
                     else:
-                        tokens.remove(i)
+                        tokens.pop(i)
                         i -= 1  # Just back that up a touch
-                i += 1
+            i += 1
 
         return tokens
 

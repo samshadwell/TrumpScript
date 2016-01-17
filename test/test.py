@@ -1,5 +1,6 @@
 from src.trumpscript.constants import *
 from src.trumpscript.tokenizer import Tokenizer
+from src.trumpscript.parser import Parser
 
 __author__ = 'github.com/samshadwell'
 
@@ -20,16 +21,21 @@ def test_file(filename, expected):
     for idx in range(len(expected)):
         if tokens[idx]['type'] != expected[idx]:
             print("Difference at index: " + str(idx) + "\n")
+            print("Expected: " + str(expected[idx]))
+            print("Received: " + str(tokens[idx]))
             return False
 
-    print("All tests pass\n")
-    return True
+    print("Tokenizer tests pass\n")
 
 
 test_file("test_files/toupee.txt", [T_Make, T_Word, T_Num,
                                     T_While, T_LParen, T_Word, T_Less, T_Num, T_RParen,
                                     T_Print, T_LParen, T_Num, T_Minus, T_Word, T_RParen,
                                     T_Make, T_Word, T_LParen, T_Word, T_Plus, T_Num, T_RParen])
+
+test_file("test_files/test_1.txt", [T_Make, T_Word, T_LParen, T_Not, T_False, T_RParen,
+                                    T_If, T_Word, T_Is, T_True, T_LBrace,
+                                    T_Word, T_Print, T_Word, T_Quote, T_RBrace])
 
 # These two exit the program (correctly)
 # test_file("test_files/nonterm_quote.txt", [])

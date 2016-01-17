@@ -126,9 +126,9 @@ class Tokenizer:
                         tokens.append(Tokenizer.toke(T_If, None, line))
                     elif word == "else" or word == "otherwise":
                         tokens.append(Tokenizer.toke(T_Else, None, line))
-                    elif word == "true" or word == "facts" or word == "truth":
+                    elif word == "true" or word == "facts" or word == "truth" or word == "fact":
                         tokens.append(Tokenizer.toke(T_True, None, line))
-                    elif word == "false" or word == "lies" or word == "nonsense":
+                    elif word == "false" or word == "lies" or word == "nonsense" or word == "lie":
                         tokens.append(Tokenizer.toke(T_False, None, line))
                     elif word == "not":
                         tokens.append(Tokenizer.toke(T_Not, None, line))
