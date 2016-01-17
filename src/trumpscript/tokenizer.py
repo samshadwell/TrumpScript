@@ -1,17 +1,16 @@
 # TrumpScript Tokenizer
 # 1/16/2016
 
+import random
 import re
 import sys
-import random
-import os
-from src.trumpscript.constants import *
+
 from src.trumpscript.allowed_words import ALLOWED
+from src.trumpscript.constants import *
 from src.trumpscript.disallowed_words import DISALLOWED
 
 
 class Tokenizer:
-
     @staticmethod
     def toke(token_type, token_value, line) -> dict:
         """
@@ -176,8 +175,6 @@ class Tokenizer:
         :return: The tokens after the second pass
         """
 
-        print(os.getcwd())
-
         # Make sure we do "America is great"
         if not Tokenizer._check_for_freedom(tokens):
             # TODO Error because freedom
@@ -202,7 +199,6 @@ class Tokenizer:
         :return: None, throws error upon infraction of rule
         """
 
-        print(ALLOWED)
         for token in tokens:
             if token['type'] == T_Word and token['value'] not in ALLOWED:
                 # TODO throw an error here
@@ -234,7 +230,7 @@ class Tokenizer:
         for idx in range(len(tokens)):
             if tokens[idx]['type'] == T_Word and tokens[idx]['value'] == 'as' and idx + 2 < len(tokens):
                 if (tokens[idx + 1]['type'] == T_Word and tokens[idx + 1]['value'] == 'long') and (
-                    tokens[idx + 2]['type'] == T_Word and tokens[idx + 2]['value'] == 'as'):
+                                tokens[idx + 2]['type'] == T_Word and tokens[idx + 2]['value'] == 'as'):
                     combine_at.append(idx)
 
         # Cover the degenerate case like "as long as long as"

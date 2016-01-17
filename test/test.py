@@ -1,6 +1,5 @@
-from src.trumpscript.tokenizer import Tokenizer
 from src.trumpscript.constants import *
-import os
+from src.trumpscript.tokenizer import Tokenizer
 
 __author__ = 'github.com/samshadwell'
 
