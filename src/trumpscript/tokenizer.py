@@ -17,7 +17,8 @@ T_And = 11
 T_Or = 12
 T_Word = 13
 T_Num = 14
-
+T_Make = 15
+T_String = 16
 
 class Tokenizer:
 
@@ -103,6 +104,8 @@ class Tokenizer:
                         tokens.append(Tokenizer.toke(T_And, None, line))
                     elif word == "or":
                         tokens.append(Tokenizer.toke(T_Or, None, line))
+                    elif word == "make":
+                        tokens.append(Tokenizer.toke(T_Make, None, line))
 
                     # English form of the operators
                     elif word == "plus":
@@ -117,6 +120,19 @@ class Tokenizer:
                     # Otherwise, it's just a word, interpreting is the lexer's job
                     else:
                         tokens.append(Tokenizer.toke(T_Word, word, line))
+
+                # Strings
+                elif c == '"':
+                    i += 1
+                    quote = ""
+                    while data[i] != '"':
+                        quote += data[i]
+                        i += 1
+                        if i >= len(data):
+                            # TODO: quote that doesnt end error
+                            pass
+                    tokens.append(Tokenizer.toke(T_String, quote, line))
+
                 else:
                     pass
                     # TODO: errors
