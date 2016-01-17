@@ -156,7 +156,8 @@ class Tokenizer:
     def _error(line, message_code) -> None:
         """
         Prints the error message and then aborts the program
-        :param message: error message to print
+        :param line: The line the error occurred on
+        :param message_code: String code associated with the error message
         :return: None
         """
 
