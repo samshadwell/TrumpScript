@@ -82,7 +82,7 @@ class Tokenizer:
                         i += 1
                     else:
                         tokens.append(Tokenizer.toke(T_Num, int(num), line))
-                    i -= 1 # Read one char too many, readjust.
+                    i -= 1  # Read one char too many, readjust.
 
                 # Words and keywords
                 elif c.isalpha():
