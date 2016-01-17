@@ -1,0 +1,19 @@
+make light 10000000
+make dark 2000000
+
+say "Addition"
+make sun , light plus dark ;
+say sun
+
+say "Subtraction"
+make sun, dark minus light ;
+say sun
+
+say "Mulitplication"
+make sun, light times dark ;
+say sun
+
+say "Divide"
+make sun, dark over light ;
+say sun
+America is great.

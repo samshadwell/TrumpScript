@@ -1,0 +1,3 @@
+as long as , fact ; :
+say "please hide me, it's dark outside" !
+America is great.
