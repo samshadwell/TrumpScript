@@ -7,12 +7,9 @@ from src.trumpscript.constants import *
 
 
 class Parser:
-    def parse(self, tokens):
+
+    def parse(self, tokens) -> AST:
         tokens = self.pre_parse(tokens)
-        body_list = []
-        i = 0
-        while len(tokens) > 1:
-            pass
 
         def peek():
             return tokens[0]["type"]
@@ -21,18 +18,60 @@ class Parser:
             if peek() == t_type:
                 return tokens.pop(0)
             else:
-                # TODO: Error
+                print("failed to consume " + str(t_type) + ", got " + str(peek()) + "instead.")
                 pass
+
+        # Mod
+        def handle_mod():
+            body_list = []
+            while len(tokens) > 1:  # TODO: determine whether we are keeping the end marker
+                # print("anything")
+                body_list.append(handle_anything())
+            return Module(body=body_list)
+
+        # Obnoxious coverage
+        def handle_anything():
+            start = peek()
+            # print("Start = " + str(start))
+            if start == T_Word:
+                return handle_word()
+            elif start == T_Make:
+                return handle_make()
+            elif start == T_LBrace:
+                return handle_brace()
+            elif start == T_LParen:
+                return handle_paren()
+            elif start == T_If:
+                return handle_if()
+            elif start == T_Print:
+                return handle_print()
+            elif start == T_True:
+                return handle_true()
+            else:
+                print("fuck that's wrong :" + str(start))
+                quit()
+                return None
+                #TODO: finish this
 
         # Stmt
         def handle_brace():
-            # Todo
-            return 1
+            consume(T_LBrace)
+            statements = []
+            while peek() != T_RBrace:
+                res = handle_anything()
+                if isinstance(res, expr):
+                    res = Expr(value=res)
+                statements.append(res)
+
+            consume(T_RBrace)
+            return statements
 
         # Expr
         def handle_paren():
-            # Todo
-            return 1
+            consume(T_LParen)
+            expression = handle_anything()
+            consume(T_RParen)
+            return expression
 
         # Assign
         def handle_make():
@@ -65,16 +104,17 @@ class Parser:
                 output = handle_word()
             else:
                 output = "error"
+                print("Print fucked up")
                 # TODO: real errors
 
-            return Call(func=Name(idx="print", ctx=Load), args=output, keywords=[])
+            return Call(func=Name(id="print", ctx=Load()), args=[output], keywords=[])
 
         # While
         def handle_while():
             token = consume(T_While)
             conditional = handle_paren()
             body = handle_brace()
-            # TODO: build tree from outputs
+            return While(test=conditional,body=body, orelse=[])
 
         # If
         def handle_if():
@@ -85,7 +125,7 @@ class Parser:
                 orelse = handle_else()
             else:
                 orelse = []
-            return If(conditional, body, orelse)
+            return If(test=conditional,body=body, orelse=orelse)
 
         # orelse piece of if
         def handle_else():
@@ -135,20 +175,21 @@ class Parser:
         # True
         def handle_true():
             token = consume(T_True)
-            return Name(idx="True", ctx=Load)
+            return Name(id="True", ctx=Load())
 
         # False
         def handle_false():
             token = consume(T_False)
-            return Name(idx="False", ctx=Load)
+            return Name(id="False", ctx=Load())
 
-        return body_list
+        #Build the entirety of the Abstract Syntax tree
+        return handle_mod()
 
     @staticmethod
     def pre_parse(tokens) -> list:
         tokens = list(tokens)
         t = "type"
-        t_null = {type: -1, "value": "NAN", "line": "NAN"}
+        t_null = {t: -1, "value": "NAN", "line": "NAN"}
         i = 0
         variables = set()
         token = t_null

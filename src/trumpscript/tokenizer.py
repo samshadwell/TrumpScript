@@ -31,7 +31,7 @@ class Tokenizer:
         :return: The tokens in the file
         """
 
-        Tokenizer._no_pc()
+        # Tokenizer._no_pc()
         tokens = Tokenizer._first_pass(filename)
         tokens = Tokenizer._second_pass(tokens)
 
