@@ -6,12 +6,12 @@ Not compatible with PC
 Variable names are English only, and either short or popular words only
 Don't run if file contains "Hillary", "Muslim", "Mexico", etc...
 Error messages are all Trump quotes
-*No floating point numbers, America doesn't do things halfway
-*$4B always converted to $10B
+No floating point numbers, America doesn't do things halfway
+$4B always converted to $10B
 "Yell" or "Exclaim" are the prints to std out
 America = Great is the equivalent of exit(0)
 Strings that are yelled, or all strings can only be uppercase
-*Numbers have to be greater than $1mill
+Numbers have to be greater than $1mill
 No build-in random generation
 "Build a fence" should do something ???
 For loop could be "Get 10 Mexicans to build a wall"
@@ -51,5 +51,4 @@ print -> tell, say
 OTHER:
 
 Allow a couple of different variations on the ending
-$4.5B always converted to $10B
-Numbers have to be greater than $1mill
+
