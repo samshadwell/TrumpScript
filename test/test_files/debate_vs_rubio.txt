@@ -1,0 +1,3 @@
+if, fact ; :
+say "First place prize please" !
+America is great.

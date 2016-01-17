@@ -8,7 +8,7 @@ from src.trumpscript.constants import *
 
 class Parser:
 
-    def parse(self, tokens):
+    def parse(self, tokens) -> AST:
         tokens = self.pre_parse(tokens)
 
         def peek():
@@ -21,16 +21,18 @@ class Parser:
                 # TODO: Error
                 pass
 
-        #Mod
+        # Mod
         def handle_mod():
             body_list = []
-            while len(tokens) > 1: # TODO: determine whether we are keeping the end marker
+            while len(tokens) > 1:  # TODO: determine whether we are keeping the end marker
+                print("anything")
                 body_list.append(handle_anything())
             return Module(body=body_list)
 
-        #Obnoxious coverage
+        # Obnoxious coverage
         def handle_anything():
             start = peek()
+            print("Start = " +start)
             if start == T_Word:
                 return handle_word()
             elif start == T_Make:
@@ -42,20 +44,26 @@ class Parser:
             elif start == T_If:
                 return handle_if()
             else:
+                print("fuck that's wrong")
+                quit()
                 return None
                 #TODO: finish this
 
-
-
         # Stmt
         def handle_brace():
-            # Todo
-            return 1
+            consume(T_LBrace)
+            statements = []
+            while peek() != T_RParen:
+                statements.append(handle_anything())
+            consume(T_RBrace)
+            return statements
 
         # Expr
         def handle_paren():
-            # Todo
-            return 1
+            consume(T_LParen)
+            expression = handle_anything()
+            consume(T_RParen)
+            return Expr(value=expression)
 
         # Assign
         def handle_make():
@@ -172,7 +180,7 @@ class Parser:
     def pre_parse(tokens) -> list:
         tokens = list(tokens)
         t = "type"
-        t_null = {type: -1, "value": "NAN", "line": "NAN"}
+        t_null = {t: -1, "value": "NAN", "line": "NAN"}
         i = 0
         variables = set()
         token = t_null
