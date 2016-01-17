@@ -11,27 +11,25 @@ Abstract grammar for TrumpScript
 	      -- BoolOp() can use left & right?
 	expr = BoolOp(boolop op, expr* values)
 	     | BinOp(expr left, operator op, expr right)
-	     | UnaryOp(unaryop op, expr operand)
-	     | IfExp(expr test, expr body, expr orelse)
+	     | UnaryOp(unaryop op, expr operand) <- only used for Not
 
 	     -- need sequences for compare to distinguish between
 	     -- x < 4 < 3 and (x < 4) < 3
 
 	     | Compare(expr left, cmpop* ops, expr* comparators)
-	     | Call(expr func, expr* args, keyword* keywords,
+	     | Call(expr func, expr* args, keyword* keywords, <- not actually used in our grammar
 			 expr? starargs, expr? kwargs)
-	     | Repr(expr value)
 	     | Num(object n) -- a number as a PyObject.
 	     | Str(string s) -- need to specify raw, unicode, etc?
 	     | Name(identifier id, expr_context ctx)
 
-	expr_context = Load | Store (| Param?)
+	expr_context = Load | Store (| Param?) <- not part of our grammar
 
-	boolop = And | Or
+	boolop = And | Or <- are they given their own handlers?
 
-	operator = Add | Sub | Mult | Div
+	operator = Add | Sub | Mult | Div <- not given their own handlers
 
 	unaryop = Not
 
-	cmpop = Eq | Lt | Gt (| NotEq | GtE | LtE can all be built using not/or)
+	cmpop = Eq | Lt | Gt (| NotEq | GtE | LtE can all be built using not/or) <- not given their own operation
 }
