@@ -64,10 +64,8 @@ class Parser:
             elif start == T_Num:
                 return handle_num()
             else:
-                print("fuck that's wrong :" + str(start))
-                quit()
-                return None
-                #TODO: finish this
+                # Silent errors
+                return Pass()
 
         # Stmt
         def handle_brace():
@@ -169,7 +167,7 @@ class Parser:
                 output = handle_word()
             else:
                 output = "error"
-                print("Print fucked up")
+                print("Print broke")
                 # TODO: real errors
 
             return Call(func=Name(id="print", ctx=Load()), args=[output], keywords=[])
@@ -200,15 +198,30 @@ class Parser:
             else:
                 return handle_brace()
 
+        # TODO: make this not necessary
         # BoolOp(s)
-        def handle_boolop():
+        # def handle_boolop():
             # TODO: take care of and / or
-            pass
+            # pass
 
         # BinOp(s)
-        def handle_binop():
-            # TODO: this mess
-            pass
+        def handle_binop(left, op):
+            tokens.pop(0)
+            nxt = peek()
+            if nxt == T_LParen:
+                right = handle_paren()
+            elif nxt == T_Word:
+                word = consume(T_Word)
+                right = Name(id=word["value"],ctx=Load())
+            elif nxt == T_Quote:
+                right = handle_quote()
+            elif nxt == T_Num:
+                right = handle_num()
+            else:
+                right = "boooo"
+                print("not valid binary op target error")
+                # TODO: should have built an error method
+            return BinOp(left=left, op=op, right=right)
 
         # Not
         def handle_not():
@@ -247,7 +260,17 @@ class Parser:
             if nxt == T_Is:
                 return handle_is(token)
             else:
-                return Name(id=token["value"], ctx=Load())
+                word_var = Name(id=token["value"], ctx=Load())
+                if nxt == T_Plus:
+                    return handle_binop(word_var, Add())
+                elif nxt == T_Minus:
+                    return handle_binop(word_var, Sub())
+                elif nxt == T_Times:
+                    return handle_binop(word_var, Mult())
+                elif nxt == T_Over:
+                    return handle_binop(word_var, Div())
+                else:
+                    return word_var
 
         # True
         def handle_true():
@@ -286,6 +309,10 @@ class Parser:
                     else:
                         tokens.pop(i)
                         i -= 1  # Just back that up a touch
+                # TODO: make this not necessary
+                if token[t] == T_Less or token[t] == T_Greater or token[t] == T_And or token[t] == T_Or:
+                    tokens.pop(i)
+                    i -= 1  # Just back that up a touch
             i += 1
 
         return tokens
