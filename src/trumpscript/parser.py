@@ -18,21 +18,21 @@ class Parser:
             if peek() == t_type:
                 return tokens.pop(0)
             else:
-                # TODO: Error
+                print("failed to consume " + str(t_type) + ", got " + str(peek()) + "instead.")
                 pass
 
         # Mod
         def handle_mod():
             body_list = []
             while len(tokens) > 1:  # TODO: determine whether we are keeping the end marker
-                print("anything")
+                # print("anything")
                 body_list.append(handle_anything())
             return Module(body=body_list)
 
         # Obnoxious coverage
         def handle_anything():
             start = peek()
-            print("Start = " +start)
+            # print("Start = " + str(start))
             if start == T_Word:
                 return handle_word()
             elif start == T_Make:
@@ -43,8 +43,12 @@ class Parser:
                 return handle_paren()
             elif start == T_If:
                 return handle_if()
+            elif start == T_Print:
+                return handle_print()
+            elif start == T_True:
+                return handle_true()
             else:
-                print("fuck that's wrong")
+                print("fuck that's wrong :" + str(start))
                 quit()
                 return None
                 #TODO: finish this
@@ -53,8 +57,12 @@ class Parser:
         def handle_brace():
             consume(T_LBrace)
             statements = []
-            while peek() != T_RParen:
-                statements.append(handle_anything())
+            while peek() != T_RBrace:
+                res = handle_anything()
+                if isinstance(res, expr):
+                    res = Expr(value=res)
+                statements.append(res)
+
             consume(T_RBrace)
             return statements
 
@@ -63,7 +71,7 @@ class Parser:
             consume(T_LParen)
             expression = handle_anything()
             consume(T_RParen)
-            return Expr(value=expression)
+            return expression
 
         # Assign
         def handle_make():
@@ -96,9 +104,10 @@ class Parser:
                 output = handle_word()
             else:
                 output = "error"
+                print("Print fucked up")
                 # TODO: real errors
 
-            return Call(func=Name(idx="print", ctx=Load), args=output, keywords=[])
+            return Call(func=Name(id="print", ctx=Load()), args=[output], keywords=[])
 
         # While
         def handle_while():
@@ -166,12 +175,12 @@ class Parser:
         # True
         def handle_true():
             token = consume(T_True)
-            return Name(idx="True", ctx=Load)
+            return Name(id="True", ctx=Load())
 
         # False
         def handle_false():
             token = consume(T_False)
-            return Name(idx="False", ctx=Load)
+            return Name(id="False", ctx=Load())
 
         #Build the entirety of the Abstract Syntax tree
         return handle_mod()
