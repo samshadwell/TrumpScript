@@ -6,6 +6,10 @@ TrumpScript is language based upon the illustrious Donald Trump. As the undeniab
 
 TrumpScript is our solution to this. It's the programming language Trump would approve of. Just like he is making America great again, we hope our efforts will make programming great again.
 
+## Usage
+To use, download the .zip and extract the contents.
+Write a trumpscript file following the syntax we've specified (good luck), and edit line 35 of test/test.py to point to the location of your file. Then run test.py and enjoy the wonderful world of TrumpScript
+
 ## Features
 Our language includes several convenient features, perfect for any aspiring Presidential candidate including:
 * No floating point numbers, only integers. America never does anything halfway.
