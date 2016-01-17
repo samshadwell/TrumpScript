@@ -44,6 +44,8 @@ The exciting parts:
 * While loops are denoted via 'as long as'. And that's the only type of loop you need anyway.
 * If a 'word' (so anything that could be a variable name) is deemed unnecessary by the compiler, it's simply thrown away. So you can make truly self documenting code, or code that appear to read very very similarly to real speeches by the big man himself. You can find some interesting examples in our 'test/test_files' directory
 
+But most importantly, Trump doesn't like to talk about his failures. So a lot of the time your code will fail, and it will do so silently. Just think of debugging as a fun little game.
+
 ## History
 Created for HackRice (hack.rice.edu) by:
 
