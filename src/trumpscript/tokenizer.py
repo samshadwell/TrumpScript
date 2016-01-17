@@ -1,6 +1,8 @@
 # TrumpScript Tokenizer
 # 1/16/2016
 
+import re
+
 # Token types
 T_Plus = 0
 T_Minus = 1
@@ -10,15 +12,23 @@ T_LParen = 4
 T_RParen = 5 
 T_LBrace = 6
 T_RBrace = 7
+
 T_Is = 8
 T_If = 9
 T_Else = 10
-T_And = 11
-T_Or = 12
-T_Word = 13
-T_Num = 14
-T_Make = 15
-T_String = 16
+
+T_True = 11
+T_False = 12
+T_And = 13
+T_Or = 14
+T_Not = 15
+
+T_Word = 16
+T_Num = 17
+T_Quote = 18
+
+T_Make = 19
+T_Question = 20
 
 class Tokenizer:
 
@@ -40,6 +50,9 @@ class Tokenizer:
         :param filename: the file to tokenize
         :return: The tokens in the file
         """
+
+        endword = re.compile("[:!,;\.\s\?]")
+
         with open(filename, 'r') as src:
             data = src.read().lower()
             tokens = []
@@ -75,6 +88,10 @@ class Tokenizer:
                 elif c == "!":
                     tokens.append(Tokenizer.toke(T_RBrace, None, line))
 
+                # Don't forget question marks
+                elif c == "?":
+                    tokens.append(Tokenizer.toke(T_Question, None, line))
+
                 # Integers (no floating point)
                 elif c.isdigit():
                     num = ""
@@ -88,9 +105,12 @@ class Tokenizer:
                 # Words and keywords
                 elif c.isalpha():
                     word = ""
-                    while data[i].isalnum():
+                    while data[i].isalpha() or data[i] == "'":
                         word += data[i]
                         i += 1
+                    if not endword.match(word):
+                        # TODO: malformed word error
+                        pass
                     i -= 1  # Read one char too many, readjust.
 
                     # Keywords
@@ -100,6 +120,12 @@ class Tokenizer:
                         tokens.append(Tokenizer.toke(T_If, None, line))
                     elif word == "else" or word == "otherwise":
                         tokens.append(Tokenizer.toke(T_Else, None, line))
+                    elif word == "true" or word == "facts" or word == "truth":
+                        tokens.append(Tokenizer.toke(T_True, None, line))
+                    elif word == "false" or word == "lies" or word == "nonsense":
+                        tokens.append(Tokenizer.toke(T_False, None, line))
+                    elif word == "not":
+                        tokens.append(Tokenizer.toke(T_Not, None, line))
                     elif word == "and":
                         tokens.append(Tokenizer.toke(T_And, None, line))
                     elif word == "or":
@@ -131,7 +157,7 @@ class Tokenizer:
                         if i >= len(data):
                             # TODO: quote that doesnt end error
                             pass
-                    tokens.append(Tokenizer.toke(T_String, quote, line))
+                    tokens.append(Tokenizer.toke(T_Quote, quote, line))
 
                 else:
                     pass
