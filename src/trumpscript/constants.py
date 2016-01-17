@@ -30,6 +30,7 @@ T_Quote = 42
 T_Make = 50
 T_Question = 51
 T_Print = 52
+T_While = 53
 
 # Error messages
 ERROR_CODES = {

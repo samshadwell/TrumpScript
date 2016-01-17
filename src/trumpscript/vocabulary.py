@@ -24,7 +24,8 @@ ADDITIONAL = ["hillary", "clinton",
               "barack", "obama",
               "joe", "biden",
               "ronald", "reagan",
-              "vladimir", "putin"]
+              "vladimir", "putin",
+              "i'll"]
 
 
 def get_allowed_words(filename) -> None:
@@ -35,7 +36,7 @@ def get_allowed_words(filename) -> None:
     """
 
     # Regex for words that are composed only of letters
-    word_regex = re.compile('^[A-Za-z]+$')
+    word_regex = re.compile('^[A-Za-z]+\'?[A-Za-z]*$')
 
     # Get a set of all the words
     words = set([])
@@ -50,7 +51,10 @@ def get_allowed_words(filename) -> None:
 
     # Write result to file
     my_file = open(filename, mode='wt', encoding='utf-8')
-    my_file.write('\n'.join(all_words))
+    my_file.write('ALLOWED = {')
+    for word in all_words:
+        my_file.write('"' + word + '",\n')
+    my_file.write('}')
     my_file.close()
 
 
@@ -113,4 +117,4 @@ def add_additional_words(words) -> None:
         words.add(candidate_word.lower())
 
 
-get_allowed_words("ALLOWED_WORDS.txt")
+get_allowed_words("allowed_words.py")

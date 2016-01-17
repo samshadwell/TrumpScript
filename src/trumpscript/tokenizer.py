@@ -4,7 +4,10 @@
 import re
 import sys
 import random
+import os
 from src.trumpscript.constants import *
+from src.trumpscript.allowed_words import ALLOWED
+from src.trumpscript.disallowed_words import DISALLOWED
 
 
 class Tokenizer:
@@ -21,7 +24,20 @@ class Tokenizer:
         return {"type": token_type, "value": token_value, "line": line}
 
     @staticmethod
-    def tokenize_file(filename) -> list:
+    def tokenize(filename):
+        """
+        Tokenize the given file
+        :param filename:
+        :return: The tokens in the file
+        """
+
+        tokens = Tokenizer._first_pass(filename)
+        tokens = Tokenizer._second_pass(tokens)
+
+        return tokens
+
+    @staticmethod
+    def _first_pass(filename) -> list:
         """
         Tokenize the given file
         :param filename: the file to tokenize
@@ -151,6 +167,115 @@ class Tokenizer:
                     # error("invalid character: %r" % c)
                 i += 1
             return tokens
+
+    @staticmethod
+    def _second_pass(tokens):
+        """
+        Makes the second pass for tokenization purposes
+        :param tokens: The tokens on which we're taking a second pass
+        :return: The tokens after the second pass
+        """
+
+        print(os.getcwd())
+
+        # Make sure we do "America is great"
+        if not Tokenizer._check_for_freedom(tokens):
+            # TODO Error because freedom
+            pass
+
+        # Convert "as long as" to while
+        tokens = Tokenizer._combine_whiles(tokens)
+
+        # Ensure words are English
+        Tokenizer._ensure_freedom(tokens)
+
+        # Check for disallowed words
+        Tokenizer._get_rid_of_commies(tokens)
+
+        return tokens
+
+    @staticmethod
+    def _ensure_freedom(tokens) -> None:
+        """
+        Make sure all the variables are in our corpus of allowed words
+        :param tokens: the tokens to filter
+        :return: None, throws error upon infraction of rule
+        """
+
+        print(ALLOWED)
+        for token in tokens:
+            if token['type'] == T_Word and token['value'] not in ALLOWED:
+                # TODO throw an error here
+                print("Word: " + token['value'] + " not English")
+
+    @staticmethod
+    def _get_rid_of_commies(tokens) -> None:
+        """
+        Make sure none of our word tokens are in the corpus of disallowed words
+        :param tokens: the tokens to filter
+        :return: None, throws error upon infraction of rule
+        """
+
+        for token in tokens:
+            if token['type'] == T_Word and token['value'] in DISALLOWED:
+                # TODO throw and error here
+                print("Word: " + token['value'] + " not allowed")
+
+    @staticmethod
+    def _combine_whiles(tokens) -> list:
+        """
+        Combine the words "as long as" to make a while token
+        :param tokens: The tokens to combine on
+        :return: The tokens with
+        """
+
+        combine_at = []
+
+        for idx in range(len(tokens)):
+            if tokens[idx]['type'] == T_Word and tokens[idx]['value'] == 'as' and idx + 2 < len(tokens):
+                if (tokens[idx + 1]['type'] == T_Word and tokens[idx + 1]['value'] == 'long') and (
+                    tokens[idx + 2]['type'] == T_Word and tokens[idx + 2]['value'] == 'as'):
+                    combine_at.append(idx)
+
+        # Cover the degenerate case like "as long as long as"
+        non_overlapping = []
+        for value in combine_at:
+            if value - 2 not in non_overlapping:
+                non_overlapping.append(value)
+
+        # Now combine the tokens and return
+        for idx in reversed(non_overlapping):
+            line = tokens[idx]['line']
+            for dummy in range(3):
+                tokens.pop(idx)
+
+            tokens.insert(idx, Tokenizer.toke(T_While, None, line))
+
+        return tokens
+
+    @staticmethod
+    def _check_for_freedom(tokens) -> bool:
+        """
+        Make sure that in the tokens passed, the last three are tokens representing the phrase "America is great"
+        :param tokens: The tokens to verify
+        :return: True if the check holds, false otherwise
+        """
+
+        last_three = tokens[-3:]
+        if len(last_three) != 3:
+            return False
+
+        # Tokens for "America is great"
+        expected = [Tokenizer.toke(T_Word, 'america', 0),
+                    Tokenizer.toke(T_Is, None, 0),
+                    Tokenizer.toke(T_Is, 'great', 0)]
+
+        # Make sure our types and values match each of the expected
+        for idx in range(3):
+            if expected[idx]['type'] != last_three[idx]['type'] or expected[idx]['value'] != last_three[idx]['value']:
+                return False
+
+        return True
 
     @staticmethod
     def _error(line, message_code) -> None:

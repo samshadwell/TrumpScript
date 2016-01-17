@@ -1,5 +1,6 @@
 from src.trumpscript.tokenizer import Tokenizer
 from src.trumpscript.constants import *
+import os
 
 __author__ = 'github.com/samshadwell'
 
@@ -12,7 +13,7 @@ def test_file(filename, expected):
     :return: True indicating the parsed tokens match the expected, false otherwise
     """
 
-    tokens = Tokenizer.tokenize_file(filename)
+    tokens = Tokenizer.tokenize(filename)
     if len(tokens) != len(expected):
         print("Tokens and expected are different lengths\n")
         return False
@@ -25,11 +26,13 @@ def test_file(filename, expected):
     print("All tests pass\n")
     return True
 
-test_file("test_files/toupee.txt", [T_Make, T_Word, T_Num,
-                               T_Word, T_Word, T_Word, T_LBrace, T_Word, T_Less, T_Num, T_RBrace,
-                               T_Word, T_Print, T_Word, T_LBrace, T_Num, T_Minus, T_Word, T_RBrace,
-                               T_Make, T_Word, T_LBrace, T_Word, T_Plus, T_Num, T_RBrace,
-                               T_Make, T_Word, T_Word])
 
-#test_file("test_files/nonterm_quote.txt", [])
-test_file("test_files/nonenglish.txt", [])
+test_file("test_files/toupee.txt", [T_Make, T_Word, T_Num,
+                                    T_While, T_LBrace, T_Word, T_Less, T_Num, T_RBrace,
+                                    T_Word, T_Print, T_Word, T_LBrace, T_Num, T_Minus, T_Word, T_RBrace,
+                                    T_Make, T_Word, T_LBrace, T_Word, T_Plus, T_Num, T_RBrace,
+                                    T_Make, T_Word, T_Word])
+
+# These two exit the program (correctly)
+# test_file("test_files/nonterm_quote.txt", [])
+# test_file("test_files/nonenglish.txt", [])
