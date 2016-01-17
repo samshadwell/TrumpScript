@@ -37,6 +37,10 @@ test_file("test_files/test_1.txt", [T_Make, T_Word, T_LParen, T_Not, T_False, T_
                                     T_If, T_Word, T_Is, T_True, T_LBrace,
                                     T_Word, T_Print, T_Word, T_Quote, T_RBrace])
 
+test_file("test_files/debateVsJeb.txt", [])
+
+test_file("test_files/fizz_buzz.txt", [])
+
 # These two exit the program (correctly)
 # test_file("test_files/nonterm_quote.txt", [])
 # test_file("test_files/nonenglish.txt", [])

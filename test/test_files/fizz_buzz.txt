@@ -1,0 +1,11 @@
+Make Donald have 15000000.
+Nothing is 1000000 minus 1000000.
+The fortune of Hillary is nothing.
+As long as, Donald has more than Hillary; Do this:
+If, Donald over 15000000 is nothing; Then: say "Fiorina Biden"!
+Else if, Donald over 5000000 is nothing; Then: say "Fiorina"!
+Else if, Donald over 3000000 is nothing; Then: say "Biden"!
+Else: say Donald!
+The fortune of Donald is, old Donald minus 1000000;
+Amazing!
+America is Great.

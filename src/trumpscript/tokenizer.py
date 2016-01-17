@@ -210,6 +210,7 @@ class Tokenizer:
 
         for token in tokens:
             if token['type'] == T_Word and token['value'] not in ALLOWED:
+                print(token['value'] + "?")
                 Tokenizer._error(token['line'], 'nonword')
 
     @staticmethod
