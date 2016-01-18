@@ -32,11 +32,7 @@ class Parser:
                 body_list.append(state)
             for statement in body_list:
                 # print(statement)
-                try:
-                    fix_missing_locations(statement)
-                except AttributeError:
-                    print("We got an attribute error for fix_missing_locations")
-                    print(statement)
+                fix_missing_locations(statement)
 
             return Module(body=body_list)
 
