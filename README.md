@@ -15,13 +15,13 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * No floating point numbers, only integers. America never does anything halfway.
 * All numbers must be strictly greater than 1 million. The small stuff is inconsequential to us.
 * There are no import statements allowed. All code has to be home-grown and American made.
-* Instead of "True" and "False," we have "fact" and "lie"
+* Instead of "True" and "False," we have "fact" and "lie".
 * Only the most popular English words, Trump's favorite words, and current politician names can be used as variable names.
 * Error messages are mostly quotes directly taken from Trump himself.
 * All programs must end with "America is great."
-* Our language will automatically correct Forbes' $4.5B to $10B
-* In it's raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC
-* The language is completely case insensitive
+* Our language will automatically correct Forbes' $4.5B to $10B.
+* In it's raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC.
+* The language is completely case insensitive.
 
 ## Grammar
 The grammar of the language is fairly convoluted, but here's a taste of the enlightened decisions we've made.
