@@ -14,7 +14,7 @@ Write a trumpscript file following the syntax we've specified (good luck), and e
 Our language includes several convenient features, perfect for any aspiring Presidential candidate including:
 * No floating point numbers, only integers. America never does anything halfway.
 * All numbers must be strictly greater than 1 million. The small stuff is inconsequential to us.
-* There are no import statements allowed. All code has to be home-grown and Amerian made.
+* There are no import statements allowed. All code has to be home-grown and American made.
 * Instead of "True" and "False," we have "fact" and "lie"
 * Only the most popular English words, Trump's favorite words, and current politician names can be used as variable names.
 * Error messages are mostly quotes directly taken from Trump himself.
