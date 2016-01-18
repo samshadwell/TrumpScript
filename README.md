@@ -53,10 +53,10 @@ But most importantly, Trump doesn't like to talk about his failures. So a lot of
 ## History
 Created for HackRice ([hack.rice.edu](http://hack.rice.edu/)) by:
 
-Sam Shadwell, @samshadwell
+Sam Shadwell, ([@samshadwell](https://github.com/samshadwell))
 
-Dan Korn, @DnlRKorn
+Dan Korn, ([@DnlRKorn](https://github.com/DnlRKorn))
 
-Chris Brown, @CryoBrown
+Chris Brown, ([@CryoBrown](https://github.com/CryoBrown))
 
-Cannon Lewis, @cannon10100
+Cannon Lewis, ([@cannon10100](https://github.com/cannon10100))
