@@ -6,9 +6,20 @@ TrumpScript is language based upon the illustrious Donald Trump. As the undeniab
 
 TrumpScript is our solution to this. It's the programming language Trump would approve of. Just like he is making America great again, we hope our efforts will make programming great again.
 
+## Installation
+To use, download the .zip and extract the contents or clone the repository by typing 
+
+`git clone https://github.com/samshadwell/TrumpScript.git`
+
+Add the TrumpScript root directory to your system PATH using one of the two following techniques
+
+1. Temporary: Write `export PATH=$PATH:/path/to/TrumpScript` to terminal.
+2. Permanent: Append `export PATH=$PATH:/path/to/TrumpScript` to the end of your `~/.bashrc` file.
+
 ## Usage
-To use, download the .zip and extract the contents.
-Write a trumpscript file following the syntax we've specified (good luck), and edit line 35 of `test/test.py` to point to the location of your file. Then run `test.py` and enjoy the wonderful world of TrumpScript
+* Write a trumpscript file following the syntax we've specified (good luck).
+* Write to terminal `TRUMP /path/to/trumpscript/file`
+* Enjoy the wonderful world of TrumpScript!
 
 ## Features
 Our language includes several convenient features, perfect for any aspiring Presidential candidate including:
