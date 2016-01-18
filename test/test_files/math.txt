@@ -6,7 +6,7 @@ make sun , light plus dark ;
 say sun
 
 say "Subtraction"
-make sun, dark minus light ;
+make sun, light minus dark ;
 say sun
 
 say "Mulitplication"
@@ -14,6 +14,6 @@ make sun, light times dark ;
 say sun
 
 say "Divide"
-make sun, dark over light ;
+make sun, light over dark ;
 say sun
 America is great.
