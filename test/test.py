@@ -31,9 +31,19 @@ def test_tokenize_file(filename, expected):
 def test_compile(filename):
     Compiler().compile(filename)
 
+# Bad tests. They break things (but on purpose)
+# test_compile("test_files/debatevsdark.txt") # Infinite loop
+# test_compile("test_files/not_english.txt") # Not english
+# test_compile("test_files/not_patriotic.txt") # America is great error
+# test_compile("test_files/nonterm_quote.txt") # Topical error
 
-test_compile("test_files/debate_vs_rubio.txt")
-
+# The few test files that actually work
+test_compile("test_files/math.txt") # Math
+test_compile("test_files/debate_vs_rubio.txt") # Simple hello world
+test_compile("test_files/debate_vs_hillary.txt")
+test_compile("test_files/debatesvdebates.txt") # Complex hello world
+test_compile("test_files/haiku.txt") #Haiku
+test_compile("test_files/huge_test.tr") #Huuuuge?
 # test_tokenize_file("test_files/toupee.txt", [T_Make, T_Word, T_Num,
 #                                              T_While, T_LParen, T_Word, T_Less, T_Num, T_RParen,
 #                                              T_Print, T_LParen, T_Num, T_Minus, T_Word, T_RParen,
@@ -42,7 +52,4 @@ test_compile("test_files/debate_vs_rubio.txt")
 # test_tokenize_file("test_files/test_1.txt", [T_Make, T_Word, T_LParen, T_Not, T_False, T_RParen,
 #                                              T_If, T_Word, T_Is, T_True, T_LBrace,
 #                                              T_Word, T_Print, T_Word, T_Quote, T_RBrace])
-#
-# These two exit the program (correctly)
-# test_file("test_files/nonterm_quote.txt", [])
-# test_file("test_files/nonenglish.txt", [])
+

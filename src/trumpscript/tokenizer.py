@@ -31,7 +31,7 @@ class Tokenizer:
         :return: The tokens in the file
         """
 
-        # Tokenizer._no_pc()
+        Tokenizer._no_pc()
         tokens = Tokenizer._first_pass(filename)
         tokens = Tokenizer._second_pass(tokens)
 
@@ -54,7 +54,7 @@ class Tokenizer:
         :return: The tokens in the file
         """
 
-        endword = re.compile("[:!,;\.\s\?]")
+        end_word = re.compile("[:!,;\.\s\?]")
 
         with open(filename, 'r') as src:
             data = src.read().lower()
@@ -115,7 +115,7 @@ class Tokenizer:
                     while i < len(data) and (data[i].isalpha() or data[i] == "'"):
                         word += data[i]
                         i += 1
-                    if i < len(data) and not endword.match(data[i]):
+                    if i < len(data) and not end_word.match(data[i]):
                         Tokenizer._error(line, 'nonword')
                     i -= 1  # Read one char too many, readjust.
 
@@ -195,9 +195,6 @@ class Tokenizer:
         # Ensure words are English
         Tokenizer._ensure_freedom(tokens)
 
-        # Check for disallowed words
-        Tokenizer._get_rid_of_commies(tokens)
-
         # Ensure all numbers are greater than 1 million, and that 4.5B is converted to 10B
         Tokenizer._fudge_the_numbers(tokens)
 
@@ -224,6 +221,23 @@ class Tokenizer:
                     token['value'] = real_worth
 
     @staticmethod
+    def _is_word_allowed(word) -> bool:
+        """
+        Check to see if a given word is allowed
+        :param word: Word to check and see if it's allowed
+        :return: true if the word is valid, false otherwise
+        """
+        # First, make sure we haven't explicitly banned the word
+        if word in DISALLOWED:
+            return False
+
+        # Now see if it's simple English, or some variation on huuuuge
+        if word in ALLOWED or re.match('^[Hh][Uu]+[Gg][Ee]$', word) is not None:
+            return True
+        else:
+            return False
+
+    @staticmethod
     def _ensure_freedom(tokens) -> None:
         """
         Make sure all the variables are in our corpus of allowed words
@@ -232,21 +246,9 @@ class Tokenizer:
         """
 
         for token in tokens:
-            if token['type'] == T_Word and token['value'] not in ALLOWED:
+            if token['type'] == T_Word and not Tokenizer._is_word_allowed(token['value']):
                 print(token['value'] + "?")
                 Tokenizer._error(token['line'], 'nonword')
-
-    @staticmethod
-    def _get_rid_of_commies(tokens) -> None:
-        """
-        Make sure none of our word tokens are in the corpus of disallowed words
-        :param tokens: the tokens to filter
-        :return: None, throws error upon infraction of rule
-        """
-
-        for token in tokens:
-            if token['type'] == T_Word and token['value'] in DISALLOWED:
-                Tokenizer._error(token['line'], 'disallowed')
 
     @staticmethod
     def _combine_whiles(tokens) -> list:
