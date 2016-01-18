@@ -1,0 +1,2 @@
+#!/bin/sh
+python3 src/trumpscript/runner.py $1
