@@ -1,11 +1,15 @@
 import sys
 import os
 import src.trumpscript.compiler
+import locale
 
 __author__ = 'github.com/samshadwell'
 
 
 def main():
+    if "CN" in locale.getdefaultlocale()[0].upper():
+        print("We can't let China beat us!")
+        return
     if len(sys.argv) != 2:
         print("Invalid usage. Provide a TrumpScript file name to compile and run")
         print("Example: ./trumpscript trump_file.ts")
