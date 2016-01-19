@@ -1,2 +1,2 @@
 #!/bin/sh
-python3 src/trumpscript/runner.py $1
+python3 src/trumpscript/main.py $1

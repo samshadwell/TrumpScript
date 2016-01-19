@@ -44,6 +44,7 @@ test_compile("test_files/debate_vs_hillary.txt")
 test_compile("test_files/debatesvdebates.txt") # Complex hello world
 test_compile("test_files/haiku.txt") #Haiku
 test_compile("test_files/huge_test.tr") #Huuuuge?
+test_compile("test_files/fizz_buzz.txt") # Fizzbuzz
 # test_tokenize_file("test_files/toupee.txt", [T_Make, T_Word, T_Num,
 #                                              T_While, T_LParen, T_Word, T_Less, T_Num, T_RParen,
 #                                              T_Print, T_LParen, T_Num, T_Minus, T_Word, T_RParen,

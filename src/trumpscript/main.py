@@ -12,7 +12,7 @@ def main():
         return
     if len(sys.argv) != 2:
         print("Invalid usage. Provide a TrumpScript file name to compile and run")
-        print("Example: ./trumpscript trump_file.ts")
+        print("Example: TRUMP trump_file.tr")
         return
 
     if not os.path.isfile(sys.argv[1]):

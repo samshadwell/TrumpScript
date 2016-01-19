@@ -1,4 +1,4 @@
 import sys
-from src.trumpscript.compiler import Compiler
+import src.trumpscript.main
 
-Compiler().compile(sys.argv[1])
+src.trumpscript.main.main()
