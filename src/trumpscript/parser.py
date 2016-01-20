@@ -5,8 +5,8 @@ from ast import *
 
 from trumpscript.constants import *
 
-class Parser:
 
+class Parser:
     def parse(self, tokens) -> AST:
         tokens = self.pre_parse(tokens)
 
@@ -117,8 +117,6 @@ class Parser:
             target = Name(id=variable["value"], ctx=Store())
             return Assign(targets=[target], value=val)
 
-
-
         ##Both Assign and EQ because why the hell not guys
         def handle_is(left):
             consume(T_Is)
@@ -178,7 +176,7 @@ class Parser:
             token = consume(T_While)
             conditional = handle_paren()
             body = handle_brace()
-            return While(test=conditional,body=body, orelse=[])
+            return While(test=conditional, body=body, orelse=[])
 
         # If
         def handle_if():
@@ -189,7 +187,7 @@ class Parser:
                 orelse = handle_else()
             else:
                 orelse = []
-            return If(test=conditional,body=body, orelse=orelse)
+            return If(test=conditional, body=body, orelse=orelse)
 
         # orelse piece of if
         def handle_else():
@@ -199,11 +197,11 @@ class Parser:
             else:
                 return handle_brace()
 
-        # TODO: make this not necessary
-        # BoolOp(s)
-        # def handle_boolop():
-            # TODO: take care of and / or
-            # pass
+                # TODO: make this not necessary
+                # BoolOp(s)
+                # def handle_boolop():
+                # TODO: take care of and / or
+                # pass
 
         # BinOp(s)
         def handle_binop(left, op):
@@ -213,7 +211,7 @@ class Parser:
                 right = handle_paren()
             elif nxt == T_Word:
                 word = consume(T_Word)
-                right = Name(id=word["value"],ctx=Load())
+                right = Name(id=word["value"], ctx=Load())
             elif nxt == T_Quote:
                 right = handle_quote()
             elif nxt == T_Num:
@@ -239,8 +237,8 @@ class Parser:
             else:
                 result = "error"
                 print("Error in not")
-                #TODO: real errors, seriously.
-            return UnaryOp(op=Not(),operand=result)
+                # TODO: real errors, seriously.
+            return UnaryOp(op=Not(), operand=result)
 
         # Num
         def handle_num():

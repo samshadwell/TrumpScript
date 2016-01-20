@@ -25,7 +25,7 @@ ADDITIONAL = ["hillary", "clinton",
               "joe", "biden",
               "ronald", "reagan",
               "vladimir", "putin",
-	      "sarah", "palin",
+              "sarah", "palin",
 
               # Common words we feel should be in there
               "i'll", "hello", "profitable", "earn", "that's", "policy", "policies", "you'll", "media", "spreads",

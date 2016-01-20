@@ -6,14 +6,13 @@ from ast import *
 from trumpscript.parser import *
 from trumpscript.tokenizer import *
 
-class Compiler:
 
+class Compiler:
     def __init__(self):
         self.tk = Tokenizer()
         self.prs = Parser()
 
     def compile(self, source):
-
         modu = self.parse(self.tokenize(source))
 
         fix_missing_locations(modu)

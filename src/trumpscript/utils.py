@@ -1,15 +1,25 @@
 import locale
 import os
+import random
 import sys
 
+from trumpscript.constants import ERROR_CODES
 # yes, bringing in openssl is completely necessary for proper operation of trumpscript
 import ssl
 
 
 class Utils:
     class SystemException(Exception):
-        def __init__(self, msg):
-            Exception.__init__(self, msg)
+        def __init__(self, msg_code) -> Exception:
+            """
+            Get the error from the error code and throw Exception
+            :param msg_code: the code for the error
+            :return: The new Exception
+            """
+            if msg_code in ERROR_CODES:
+                Exception.__init__(self, random.choice(ERROR_CODES[msg_code]))
+            else:
+                Exception.__init__(self, random.choice(ERROR_CODES['default']))
 
     @staticmethod
     def verify_system() -> None:
@@ -36,12 +46,12 @@ class Utils:
         :return:
         """
         if os.name == 'nt':
-            raise Utils.SystemException('TrumpScript cannot run on Windows.');
+            raise Utils.SystemException('os');
 
     @staticmethod
     def no_commies() -> None:
         """
-        Make sure we aren't executing on a Chinese system
+        Make sure we aren't executing on a Chinese or Mexican system
         :return:
         """
         loc = locale.getdefaultlocale()

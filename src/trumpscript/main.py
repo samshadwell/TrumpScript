@@ -1,9 +1,11 @@
-import sys
 import os
+import sys
+
 from trumpscript.compiler import *
 from trumpscript.utils import *
 
 __author__ = 'github.com/samshadwell'
+
 
 def main():
     if len(sys.argv) != 2:
@@ -17,6 +19,7 @@ def main():
 
     Utils.verify_system()
     Compiler().compile(sys.argv[1])
+
 
 if __name__ == "__main__":
     main()

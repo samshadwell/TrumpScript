@@ -1,14 +1,13 @@
 # TrumpScript Tokenizer
 # 1/16/2016
 
-import os
-import random
 import re
-import sys
 
 from trumpscript.allowed_words import ALLOWED
 from trumpscript.constants import *
 from trumpscript.disallowed_words import DISALLOWED
+from trumpscript.utils import Utils
+
 
 class Tokenizer:
     @staticmethod
@@ -309,8 +308,4 @@ class Tokenizer:
 
         print("Parsing error:")
         print("What are you doing on line " + str(line) + "?")
-        if message_code in ERROR_CODES:
-            print(random.choice(ERROR_CODES[message_code]))
-        else:
-            print(random.choice(ERROR_CODES['default']))
-        sys.exit(2)
+        raise Utils.SystemException(message_code)
