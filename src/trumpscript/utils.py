@@ -47,6 +47,8 @@ class Utils:
         loc = locale.getdefaultlocale()
         if len(loc) > 0 and 'CN' in loc[0].upper():
             raise Utils.SystemException("We can't let China beat us!")
+        if len(loc) > 0 and 'MX' in loc[0].upper():
+            raise Utils.SystemException("I will build a great [fire]wall on our southern border.")
 
         # Warn if the system has any certificates from Chinese authorities
         ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
