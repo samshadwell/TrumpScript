@@ -31,7 +31,7 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * Error messages are mostly quotes directly taken from Trump himself.
 * All programs must end with "America is great."
 * Our language will automatically correct Forbes' $4.5B to $10B.
-* In it's raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC.
+* In its raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC.
 * The language is completely case insensitive.
 
 ## Grammar
