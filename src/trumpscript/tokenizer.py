@@ -6,10 +6,9 @@ import random
 import re
 import sys
 
-from src.trumpscript.allowed_words import ALLOWED
-from src.trumpscript.constants import *
-from src.trumpscript.disallowed_words import DISALLOWED
-
+from trumpscript.allowed_words import ALLOWED
+from trumpscript.constants import *
+from trumpscript.disallowed_words import DISALLOWED
 
 class Tokenizer:
     @staticmethod
@@ -31,20 +30,10 @@ class Tokenizer:
         :return: The tokens in the file
         """
 
-        Tokenizer._no_pc()
         tokens = Tokenizer._first_pass(filename)
         tokens = Tokenizer._second_pass(tokens)
 
         return tokens
-
-    @staticmethod
-    def _no_pc() -> None:
-        """
-        Make sure the currently-running OS is not Windows
-        :return:
-        """
-        if os.name == 'nt':
-            Tokenizer._error(0, 'os')
 
     @staticmethod
     def _first_pass(filename) -> list:

@@ -13,12 +13,12 @@ To use, download the .zip and extract the contents or clone the repository by ty
 
 Add the TrumpScript root directory to your system PATH using one of the two following techniques
 
-1. Temporary: Write `export PATH=$PATH:/path/to/TrumpScript` to terminal.
-2. Permanent: Append `export PATH=$PATH:/path/to/TrumpScript` to the end of your `~/.bashrc` file.
+1. Temporary: Write `export PATH=$PATH:/path/to/TrumpScript/bin` to terminal.
+2. Permanent: Append `export PATH=$PATH:/path/to/TrumpScript/bin` to the end of your `~/.bashrc` file.
 
 ## Usage
 * Write a trumpscript file following the syntax we've specified (good luck).
-* Write to terminal `TRUMP /path/to/trumpscript/file`
+* Execute `TRUMP /path/to/trumpscript/file`
 * Enjoy the wonderful world of TrumpScript!
 
 ## Features
@@ -31,7 +31,7 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * Error messages are mostly quotes directly taken from Trump himself.
 * All programs must end with "America is great."
 * Our language will automatically correct Forbes' $4.5B to $10B.
-* In it's raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC.
+* In its raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC.
 * The language is completely case insensitive.
 
 ## Grammar

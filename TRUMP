@@ -1,2 +1,0 @@
-#!/bin/sh
-python3 src/trumpscript/main.py $1

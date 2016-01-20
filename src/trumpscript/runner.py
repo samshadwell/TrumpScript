@@ -1,4 +1,4 @@
 import sys
-import src.trumpscript.main
+import trumpscript.main
 
-src.trumpscript.main.main()
+trumpscript.main.main()
