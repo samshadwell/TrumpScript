@@ -51,5 +51,7 @@ ERROR_CODES = {
     # They had better let us know that 'America is great.'
     'freedom': ["Trump will ensure that 'America is great'"],
     # Don't even try to make numbers smaller than 1,000,000
-    'too_small': ["I'm really rich.", "Part of the beauty of me is I'm very rich."]
-}
+    'too_small': ["I'm really rich.", "Part of the beauty of me is I'm very rich."],
+    # Let them know we don't need to run as root
+    'root': ['America doesn\'t need root to be great.']
+    }
