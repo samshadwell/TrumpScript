@@ -1,0 +1,8 @@
+#!/bin/sh
+
+SCRIPT=`readlink -f "$0"`
+DIR=`dirname "$SCRIPT"`
+ROOT=`readlink -f "$DIR/.."`
+
+export PYTHONPATH="$ROOT:$ROOT/src:$PYTHONPATH"
+exec python3 "$ROOT/src/trumpscript/main.py" $1
