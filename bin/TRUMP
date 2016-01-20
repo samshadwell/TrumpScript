@@ -1,0 +1,9 @@
+#!/bin/sh
+
+#SCRIPT=`readlink -f "$0"`
+#DIR=`dirname "$SCRIPT"`
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ROOT="$(dirname "$DIR")"
+
+export PYTHONPATH="$PYTHONPATH:$ROOT:$ROOT/src:"
+exec python3 "$ROOT/src/trumpscript/main.py" $1

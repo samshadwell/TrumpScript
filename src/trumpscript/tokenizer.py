@@ -6,10 +6,9 @@ import random
 import re
 import sys
 
-from src.trumpscript.allowed_words import ALLOWED
-from src.trumpscript.constants import *
-from src.trumpscript.disallowed_words import DISALLOWED
-
+from trumpscript.allowed_words import ALLOWED
+from trumpscript.constants import *
+from trumpscript.disallowed_words import DISALLOWED
 
 class Tokenizer:
     @staticmethod
@@ -31,20 +30,10 @@ class Tokenizer:
         :return: The tokens in the file
         """
 
-        # Tokenizer._no_pc()
         tokens = Tokenizer._first_pass(filename)
         tokens = Tokenizer._second_pass(tokens)
 
         return tokens
-
-    @staticmethod
-    def _no_pc() -> None:
-        """
-        Make sure the currently-running OS is not Windows
-        :return:
-        """
-        if os.name == 'nt':
-            Tokenizer._error(0, 'os')
 
     @staticmethod
     def _first_pass(filename) -> list:
@@ -54,7 +43,7 @@ class Tokenizer:
         :return: The tokens in the file
         """
 
-        endword = re.compile("[:!,;\.\s\?]")
+        end_word = re.compile("[:!,;\.\s\?]")
 
         with open(filename, 'r') as src:
             data = src.read().lower()
@@ -115,7 +104,7 @@ class Tokenizer:
                     while i < len(data) and (data[i].isalpha() or data[i] == "'"):
                         word += data[i]
                         i += 1
-                    if i < len(data) and not endword.match(data[i]):
+                    if i < len(data) and not end_word.match(data[i]):
                         Tokenizer._error(line, 'nonword')
                     i -= 1  # Read one char too many, readjust.
 
@@ -195,10 +184,47 @@ class Tokenizer:
         # Ensure words are English
         Tokenizer._ensure_freedom(tokens)
 
-        # Check for disallowed words
-        Tokenizer._get_rid_of_commies(tokens)
+        # Ensure all numbers are greater than 1 million, and that 4.5B is converted to 10B
+        Tokenizer._fudge_the_numbers(tokens)
 
         return tokens
+
+    @staticmethod
+    def _fudge_the_numbers(tokens) -> None:
+        """
+        Make sure all numbers have values in excess of 1M, and convert 4.5B to 10B if we encounter it
+        :param tokens: The tokens to enforce these rules on
+        :return: None, throws an error is rules are violated. Also mutates tokens in-place
+        """
+
+        million = 10 ** 6
+        forbes_worth = 4.5 * 10 ** 9
+        real_worth = 10 * 10 ** 9
+
+        for token in tokens:
+            if token['type'] == T_Num:
+                value = token['value']
+                if value < million:
+                    Tokenizer._error(token['line'], 'too_small')
+                if value == forbes_worth:
+                    token['value'] = real_worth
+
+    @staticmethod
+    def _is_word_allowed(word) -> bool:
+        """
+        Check to see if a given word is allowed
+        :param word: Word to check and see if it's allowed
+        :return: true if the word is valid, false otherwise
+        """
+        # First, make sure we haven't explicitly banned the word
+        if word in DISALLOWED:
+            return False
+
+        # Now see if it's simple English, or some variation on huuuuge
+        if word in ALLOWED or re.match('^[Hh][Uu]+[Gg][Ee]$', word) is not None:
+            return True
+        else:
+            return False
 
     @staticmethod
     def _ensure_freedom(tokens) -> None:
@@ -209,21 +235,9 @@ class Tokenizer:
         """
 
         for token in tokens:
-            if token['type'] == T_Word and token['value'] not in ALLOWED:
+            if token['type'] == T_Word and not Tokenizer._is_word_allowed(token['value']):
                 print(token['value'] + "?")
                 Tokenizer._error(token['line'], 'nonword')
-
-    @staticmethod
-    def _get_rid_of_commies(tokens) -> None:
-        """
-        Make sure none of our word tokens are in the corpus of disallowed words
-        :param tokens: the tokens to filter
-        :return: None, throws error upon infraction of rule
-        """
-
-        for token in tokens:
-            if token['type'] == T_Word and token['value'] in DISALLOWED:
-                Tokenizer._error(token['line'], 'disallowed')
 
     @staticmethod
     def _combine_whiles(tokens) -> list:

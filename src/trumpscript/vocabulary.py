@@ -25,9 +25,11 @@ ADDITIONAL = ["hillary", "clinton",
               "joe", "biden",
               "ronald", "reagan",
               "vladimir", "putin",
+	      "sarah", "palin",
 
               # Common words we feel should be in there
-              "i'll", "hello", "profitable", "earn", "that's", "policy", "policies", "you'll"]
+              "i'll", "hello", "profitable", "earn", "that's", "policy", "policies", "you'll", "media", "spreads",
+              "americans"]
 
 
 def get_allowed_words(filename) -> None:

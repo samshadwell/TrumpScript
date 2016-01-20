@@ -1,11 +1,10 @@
-from src.trumpscript.constants import *
+from src.trumpscript.compiler import Compiler
 from src.trumpscript.tokenizer import Tokenizer
-from src.trumpscript.parser import Parser
 
 __author__ = 'github.com/samshadwell'
 
 
-def test_file(filename, expected):
+def test_tokenize_file(filename, expected):
     """
     Parse the file and verify that the types are what we expect
     :param expected: the expected sequence of type codes coming from the parser
@@ -26,21 +25,32 @@ def test_file(filename, expected):
             return False
 
     print("Tokenizer tests pass\n")
+    return True
 
 
-test_file("test_files/toupee.txt", [T_Make, T_Word, T_Num,
-                                    T_While, T_LParen, T_Word, T_Less, T_Num, T_RParen,
-                                    T_Print, T_LParen, T_Num, T_Minus, T_Word, T_RParen,
-                                    T_Make, T_Word, T_LParen, T_Word, T_Plus, T_Num, T_RParen])
+def test_compile(filename):
+    Compiler().compile(filename)
 
-test_file("test_files/test_1.txt", [T_Make, T_Word, T_LParen, T_Not, T_False, T_RParen,
-                                    T_If, T_Word, T_Is, T_True, T_LBrace,
-                                    T_Word, T_Print, T_Word, T_Quote, T_RBrace])
+# Bad tests. They break things (but on purpose)
+# test_compile("test_files/debatevsdark.txt") # Infinite loop
+# test_compile("test_files/not_english.txt") # Not english
+# test_compile("test_files/not_patriotic.txt") # America is great error
+# test_compile("test_files/nonterm_quote.txt") # Topical error
 
-test_file("test_files/debate_vs_jeb.txt", [])
+# The few test files that actually work
+test_compile("test_files/math.txt") # Math
+test_compile("test_files/debate_vs_rubio.txt") # Simple hello world
+test_compile("test_files/debate_vs_hillary.txt")
+test_compile("test_files/debatesvdebates.txt") # Complex hello world
+test_compile("test_files/haiku.txt") #Haiku
+test_compile("test_files/huge_test.tr") #Huuuuge?
+test_compile("test_files/fizz_buzz.txt") # Fizzbuzz
+# test_tokenize_file("test_files/toupee.txt", [T_Make, T_Word, T_Num,
+#                                              T_While, T_LParen, T_Word, T_Less, T_Num, T_RParen,
+#                                              T_Print, T_LParen, T_Num, T_Minus, T_Word, T_RParen,
+#                                              T_Make, T_Word, T_LParen, T_Word, T_Plus, T_Num, T_RParen])
+#
+# test_tokenize_file("test_files/test_1.txt", [T_Make, T_Word, T_LParen, T_Not, T_False, T_RParen,
+#                                              T_If, T_Word, T_Is, T_True, T_LBrace,
+#                                              T_Word, T_Print, T_Word, T_Quote, T_RBrace])
 
-test_file("test_files/fizz_buzz.txt", [])
-
-# These two exit the program (correctly)
-# test_file("test_files/nonterm_quote.txt", [])
-# test_file("test_files/nonenglish.txt", [])

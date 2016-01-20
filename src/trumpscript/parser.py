@@ -3,8 +3,7 @@
 
 from ast import *
 
-from src.trumpscript.constants import *
-
+from trumpscript.constants import *
 
 class Parser:
 
@@ -33,6 +32,7 @@ class Parser:
             for statement in body_list:
                 # print(statement)
                 fix_missing_locations(statement)
+
             return Module(body=body_list)
 
         # Obnoxious coverage
@@ -65,6 +65,7 @@ class Parser:
                 return handle_num()
             else:
                 # Silent errors
+                tokens.pop(0)
                 return Pass()
 
         # Stmt
