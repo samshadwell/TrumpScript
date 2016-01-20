@@ -47,7 +47,7 @@ class Utils:
         :return:
         """
         if os.geteuid() == 0:
-            raise Utils.SystemException('America is strong enough to run without root')
+            raise Utils.SystemException('root')
 
     @staticmethod
     def no_pc() -> None:
