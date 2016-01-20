@@ -35,17 +35,17 @@ T_While = 53
 # Error messages
 ERROR_CODES = {
     # For quotes that didn't get terminated
-    'unterminated_quote': ["And, believe me, if I win, if I become President, that will end.", "Anyone who thinks my \
-                           story is near over is sadly mistaken."],
+    'unterminated_quote': ["And, believe me, if I win, if I become President, that will end.", "Anyone who thinks my " +
+                           "story is near over is sadly mistaken."],
     # If they try to use a word that isn't common English
     'nonword': ["This is a country where we speak English",
                 "We have a country where to assimilate you have to speak English"],
     # If they try to use a word that we've explicitly banned
     'badword': ["Trump doesn't want to hear it"],
     # Generic errors for when we're lazy
-    'default': ["You know, it really doesn’t matter what the media write as long as you’ve got a young and beautiful \
-                piece of ass.", "The concept of global warming was created by and for the Chinese in order to make \
-                U.S. manufacturing non-competitive.", "Listen you motherfucker, we're going to tax you 25 percent!"],
+    'default': ["You know, it really doesn’t matter what the media write as long as you’ve got a young and beautiful " +
+                "piece of ass.", "The concept of global warming was created by and for the Chinese in order to make " +
+                "U.S. manufacturing non-competitive.", "Listen you motherfucker, we're going to tax you 25 percent!"],
     # If they try to run on a PC
     'os': ["Windows? 'The big problem this country has is being PC'"],
     # They had better let us know that 'America is great.'
