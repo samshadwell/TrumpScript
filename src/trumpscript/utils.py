@@ -28,6 +28,7 @@ class Utils:
         a SystemException otherwise
         :return:
         """
+        Utils.no_wimps()
         Utils.no_pc()
         Utils.no_commies()
 
@@ -38,6 +39,15 @@ class Utils:
         :return:
         """
         print('WARNING: ' + (str % args), file=sys.stderr)
+
+    @staticmethod
+    def no_wimps() -> None:
+        """
+        Make sure we're executing as root
+        :return:
+        """
+        if os.geteuid() != 0:
+            raise Utils.SystemException('you must be root')
 
     @staticmethod
     def no_pc() -> None:
