@@ -61,6 +61,9 @@ The exciting parts:
 
 But most importantly, Trump doesn't like to talk about his failures. So a lot of the time your code will fail, and it will do so silently. Just think of debugging as a fun little game.
 
+## Media
+Hey, cool, [we got an article on Inverse written about us!](https://www.inverse.com/article/10448-coders-assimilate-donald-trump-to-a-programming-language)
+
 ## History
 Created for HackRice ([hack.rice.edu](http://hack.rice.edu/)) by:
 
