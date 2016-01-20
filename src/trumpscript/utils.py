@@ -5,6 +5,7 @@ import sys
 # yes, bringing in openssl is completely necessary for proper operation of trumpscript
 import ssl
 
+
 class Utils:
     class SystemException(Exception):
         def __init__(self, msg):
