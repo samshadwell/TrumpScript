@@ -76,6 +76,9 @@ There's also [Bernie Sanders](https://go.berniesanders.com/page/contribute/splas
 ## Because We've Sold Out
 If you're feeling extra generous, you can also buy us a beer (or two) for more brainstorming via:
 
+Paypal (not entirely sure if this is Kosher but whatever):
+[paypal.me/Shadwell](paypal.me/Shadwell)
+
 Bitcoin:
 [1AKK76WNmQheCYgZEksB61Jyp1voYxN63v](bitcoin:1AKK76WNmQheCYgZEksB61Jyp1voYxN63v)
 
