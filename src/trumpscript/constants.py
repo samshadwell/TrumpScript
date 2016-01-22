@@ -54,4 +54,4 @@ ERROR_CODES = {
     'too_small': ["I'm really rich.", "Part of the beauty of me is I'm very rich."],
     # Let them know we don't need to run as root
     'root': ['America doesn\'t need root to be great.']
-    }
+}
