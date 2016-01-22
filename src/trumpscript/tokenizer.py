@@ -215,6 +215,7 @@ class Tokenizer:
         :param word: Word to check and see if it's allowed
         :return: true if the word is valid, false otherwise
         """
+
         # First, make sure we haven't explicitly banned the word
         if word in DISALLOWED:
             return False
