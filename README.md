@@ -74,7 +74,7 @@ I'm a fan of the [Electronic Frontier Foundation](https://www.eff.org), [donate 
 There's also [Bernie Sanders](https://go.berniesanders.com/page/contribute/splash), [Hillary Clinton](https://www.hillaryclinton.com/contribute/donate/), [Martin O'Malley](https://martinomalley.com/donate/), and of course [Donald Trump himself. ](http://www.reactiongifs.com/r/saywha.gif)
 
 ## Because We've Sold Out
-If you're feeling extra generous, you can also buy us a beer (or two) via:
+If you're feeling extra generous, you can also buy us a beer (or two) for more brainstorming via:
 
 Bitcoin:
 [1AKK76WNmQheCYgZEksB61Jyp1voYxN63v](bitcoin:1AKK76WNmQheCYgZEksB61Jyp1voYxN63v)
