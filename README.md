@@ -35,6 +35,9 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * Our language will automatically correct Forbes' $4.5B to $10B.
 * In its raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC.
 * The language is completely case insensitive.
+* If the running computer is from China or Mexico, TrumpScript will not compile. We don't want them stealing our American technological secrets.
+* Warns you if you have any Communists masqeurading as legitimate "SSL Certificates" from China on your system.
+* Won't run in root mode because America doesn't need your help being great. Trump is all we need.
 
 ## Grammar
 The grammar of the language is fairly convoluted, but here's a taste of the enlightened decisions we've made.
@@ -65,6 +68,14 @@ But most importantly, Trump doesn't like to talk about his failures. So a lot of
 
 ## Media
 Hey, cool, [we got an article on Inverse written about us!](https://www.inverse.com/article/10448-coders-assimilate-donald-trump-to-a-programming-language)
+
+[Also Motherboard](http://motherboard.vice.com/read/donald-trump-in-a-programming-language)
+
+[And The Verge](http://www.theverge.com/tldr/2016/1/21/10806944/donald-trump-script-python)
+
+[And one on Gizmodo](http://gizmodo.com/theres-a-donald-trump-programming-language-1754458693)
+
+[And TheNextWeb](http://thenextweb.com/us/2016/01/22/trumpscript-is-a-programming-language-that-thinks-and-acts-like-donald/)
 
 ## History
 Created for HackRice ([hack.rice.edu](http://hack.rice.edu/)) by:
