@@ -91,6 +91,10 @@ Hey, cool, [we got an article on Inverse written about us!](https://www.inverse.
 
 [And TheNextWeb](http://thenextweb.com/us/2016/01/22/trumpscript-is-a-programming-language-that-thinks-and-acts-like-donald/)
 
+[And Mashable](http://mashable.com/2016/01/22/donald-trump-programming-language/#9NAKAP8GPOqt)
+
+[And The Washington Post](https://www.washingtonpost.com/news/powerpost/wp/2016/01/22/decentralizing-control-of-the-internet-meet-trumpscript-a-new-programming-language-are-iphone-sales-in-decline/)
+
 ## History
 Created for HackRice ([hack.rice.edu](http://hack.rice.edu/)) by:
 
