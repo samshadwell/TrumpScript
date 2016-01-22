@@ -9,9 +9,11 @@ TrumpScript is our solution to this. It's the programming language Trump would a
 ## Installation
 To use, download the .zip and extract the contents or clone the repository by typing 
 
-`git clone https://github.com/samshadwell/TrumpScript.git`
+```bash
+git clone https://github.com/samshadwell/TrumpScript.git
+```
 
-Add the TrumpScript root directory to your system PATH using one of the two following techniques
+Add the TrumpScript root directory to your system `PATH` using one of the two following techniques
 
 1. Temporary: Write `export PATH=$PATH:/path/to/TrumpScript/bin` to terminal.
 2. Permanent: Append `export PATH=$PATH:/path/to/TrumpScript/bin` to the end of your `~/.bashrc` file.
@@ -29,7 +31,7 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * Instead of `True` and `False`, we have `fact` and `lie`.
 * Only the most popular English words, Trump's favorite words, and current politician names can be used as variable names.
 * Error messages are mostly quotes directly taken from Trump himself.
-* All programs must end with "America is great."
+* All programs must end with `America is great`.
 * Our language will automatically correct Forbes' $4.5B to $10B.
 * In its raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC.
 * The language is completely case insensitive.
@@ -52,11 +54,11 @@ Control flow:
 * `not`, `and`, and `or` do what you expect
 
 The exciting parts:
-* Strings are denoted by double quotes ("I love Trump")
+* Strings are denoted by double quotes (`"I love Trump"`)
 * The `is` and `are` keywords are used both to check for equality, and for assignment. To use for assignment, say something like `Trump is great` or `Democrats are dumb`. To use to check for equality, do the same but append a `?`. For example, you may need to ask yourself `Trump is "the best"?` (although we all know that would evaluate to `fact` anyway)
 * Assignment can also be done via the `make` keyword. E.g. `Make America great` assigns the value of the variable `great` to `America`
 * Printing to stdout can be done via `tell` or `say`
-* While loops are denoted via `as long as`. And that's the only type of loop you need anyway.
+* While loops are denoted via `as long as`. And that's the only type of loop you need anyway
 * If a 'word' (so anything that could be a variable name) is deemed unnecessary by the compiler, it's simply thrown away. So you can make truly self documenting code, or code that appear to read very very similarly to real speeches by the big man himself. You can find some interesting examples in our `test/test_files` directory
 
 But most importantly, Trump doesn't like to talk about his failures. So a lot of the time your code will fail, and it will do so silently. Just think of debugging as a fun little game.
