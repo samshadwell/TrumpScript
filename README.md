@@ -94,7 +94,7 @@ Hey, cool, [we got an article on Inverse written about us!](https://www.inverse.
 ## History
 Created for HackRice ([hack.rice.edu](http://hack.rice.edu/)) by:
 
-Sam Shadwell, [@samshadwell](https://github.com/samshadwell)
+[Sam Shadwell](http://samshadwell.me), [@samshadwell](https://github.com/samshadwell)
 
 Dan Korn, [@DnlRKorn](https://github.com/DnlRKorn)
 
