@@ -267,7 +267,7 @@ class Parser:
                 elif nxt == T_Times:
                     return handle_binop(word_var, Mult())
                 elif nxt == T_Over:
-                    return handle_binop(word_var, Div())
+                    return handle_binop(word_var, FloorDiv())
                 else:
                     return word_var
 
