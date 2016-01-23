@@ -6,9 +6,9 @@ import random
 import re
 import sys
 
-from trumpscript.allowed_words import ALLOWED
-from trumpscript.constants import *
-from trumpscript.disallowed_words import DISALLOWED
+from src.trumpscript.allowed_words import ALLOWED
+from src.trumpscript.constants import *
+from src.trumpscript.disallowed_words import DISALLOWED
 
 class Tokenizer:
     @staticmethod
