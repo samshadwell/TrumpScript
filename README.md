@@ -98,6 +98,10 @@ Hey, cool, [we got an article on Inverse written about us!](https://www.inverse.
 
 [And The Washington Post](https://www.washingtonpost.com/news/powerpost/wp/2016/01/22/decentralizing-control-of-the-internet-meet-trumpscript-a-new-programming-language-are-iphone-sales-in-decline/)
 
+[Geekwire](http://www.geekwire.com/2016/donald-trump-programming-language-seeks-to-make-programming-great-again/)
+
+[UPI](http://www.upi.com/Odd_News/2016/01/22/Group-of-coders-create-script-language-based-on-Donald-Trump/1101453495327/)
+
 ## History
 Created for HackRice ([hack.rice.edu](http://hack.rice.edu/)) by:
 
