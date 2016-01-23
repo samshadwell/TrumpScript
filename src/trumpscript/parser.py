@@ -7,6 +7,7 @@ from trumpscript.constants import *
 
 
 class Parser:
+
     def parse(self, tokens) -> AST:
         tokens = self.pre_parse(tokens)
 
@@ -38,33 +39,9 @@ class Parser:
         # Obnoxious coverage
         def handle_anything():
             start = peek()
-            # print("Start = " + str(start))
-            if start == T_Word:
-                return handle_word()
-            elif start == T_Make:
-                return handle_make()
-            elif start == T_LBrace:
-                return handle_brace()
-            elif start == T_LParen:
-                return handle_paren()
-            elif start == T_If:
-                return handle_if()
-            elif start == T_While:
-                return handle_while()
-            elif start == T_Print:
-                return handle_print()
-            elif start == T_True:
-                return handle_true()
-            elif start == T_False:
-                return handle_false()
-            elif start == T_Not:
-                return handle_not()
-            elif start == T_Quote:
-                return handle_quote()
-            elif start == T_Num:
-                return handle_num()
-            else:
-                # Silent errors
+            try:
+                return token_to_function_map[start]()
+            except KeyError:
                 tokens.pop(0)
                 return Pass()
 
@@ -90,56 +67,30 @@ class Parser:
 
         # Assign
         def handle_make():
-            token = consume(T_Make)
-
+            valid_tokens = [T_Word, T_LParen, T_True, T_False, T_Not, T_Quote, T_Num]
+            consume(T_Make)
             variable = consume(T_Word)
-            followup = peek()  # Check the type of the next token to see if it's acceptable
-            if followup == T_Word:
-                tok = consume(T_Word)
-                val = Name(id=tok["value"], ctx=Load())
-            elif followup == T_LParen:
-                val = handle_paren()
-            elif followup == T_True:
-                val = handle_true()
-                print(val)
-            elif followup == T_False:
-                val = handle_false()
-            elif followup == T_Not:
-                val = handle_not()
-            elif followup == T_Quote:
-                val = handle_quote()
-            elif followup == T_Num:
-                val = handle_num()
+            next_token = peek()  # Check the type of the next token to see if it's acceptable
+            if next_token == T_Word:
+                val = _get_value_from_word_token()
+            elif next_token in valid_tokens:
+                val = token_to_function_map[next_token]()
             else:
-                print("make error")
-                # TODO: get real errors srsly
-                val = "garbageerror"
+                val = _temporary_error(msg="garbageerror")
             target = Name(id=variable["value"], ctx=Store())
             return Assign(targets=[target], value=val)
 
-        ##Both Assign and EQ because why the hell not guys
+        # Both Assign and EQ because why the hell not guys
         def handle_is(left):
+            valid_tokens = [T_Word, T_LParen, T_True, T_False, T_Not, T_Quote, T_Num]
             consume(T_Is)
-            followup = peek()  # Check the type of the next token to see if it's acceptable
-            if followup == T_Word:
-                tok = consume(T_Word)
-                right = Name(id=tok["value"], ctx=Load())
-            elif followup == T_LParen:
-                right = handle_paren()
-            elif followup == T_True:
-                right = handle_true()
-            elif followup == T_False:
-                right = handle_false()
-            elif followup == T_Not:
-                right = handle_not()
-            elif followup == T_Quote:
-                right = handle_quote()
-            elif followup == T_Num:
-                right = handle_num()
+            next_token = peek()  # Check the type of the next token to see if it's acceptable
+            if next_token == T_Word:
+                right = _get_value_from_word_token()
+            elif next_token in valid_tokens:
+                right = token_to_function_map[next_token]()
             else:
-                right = "ERROR"
-                # TODO: real errors
-                print("is_error")
+                right = _temporary_error(msg="is_error")
             if peek() == T_Question:
                 consume(T_Question)
                 first = Name(id=left["value"], ctx=Load())
@@ -150,37 +101,25 @@ class Parser:
 
         # Print
         def handle_print():
+            valid_tokens = [T_Quote, T_LParen, T_Num, T_True, T_False, T_Word]
             consume(T_Print)
-            followup = peek()
-            if followup == T_Quote:
-                output = handle_quote()
-            elif followup == T_LParen:
-                output = handle_paren()
-            elif followup == T_Num:
-                output = handle_num()
-            elif followup == T_True:
-                output = handle_true()
-            elif followup == T_False:
-                output = handle_false()
-            elif followup == T_Word:
-                output = handle_word()
+            next_token = peek()
+            if next_token in valid_tokens:
+                output = token_to_function_map[next_token]()
             else:
-                output = "error"
-                print("Print broke")
-                # TODO: real errors
-
+                output = _temporary_error(msg="Print broke")
             return Call(func=Name(id="print", ctx=Load()), args=[output], keywords=[])
 
         # While
         def handle_while():
-            token = consume(T_While)
+            consume(T_While)
             conditional = handle_paren()
             body = handle_brace()
             return While(test=conditional, body=body, orelse=[])
 
         # If
         def handle_if():
-            token = consume(T_If)
+            consume(T_If)
             conditional = handle_paren()
             body = handle_brace()
             if peek() == T_Else:
@@ -197,47 +136,26 @@ class Parser:
             else:
                 return handle_brace()
 
-                # TODO: make this not necessary
-                # BoolOp(s)
-                # def handle_boolop():
-                # TODO: take care of and / or
-                # pass
-
         # BinOp(s)
         def handle_binop(left, op):
+            valid_tokens = [T_LParen, T_Quote, T_Num, T_Word]
             tokens.pop(0)
-            nxt = peek()
-            if nxt == T_LParen:
-                right = handle_paren()
-            elif nxt == T_Word:
-                word = consume(T_Word)
-                right = Name(id=word["value"], ctx=Load())
-            elif nxt == T_Quote:
-                right = handle_quote()
-            elif nxt == T_Num:
-                right = handle_num()
+            next_token = peek()
+            if next_token in valid_tokens:
+                right = token_to_function_map[next_token]()
             else:
-                right = "boooo"
-                print("not valid binary op target error")
-                # TODO: should have built an error method
+                right = _temporary_error(msg="not valid binary op target error")
             return BinOp(left=left, op=op, right=right)
 
         # Not
         def handle_not():
+            valid_tokens = [T_LParen, T_Word, T_False, T_True]
             consume(T_Not)
-            nxt = peek()
-            if nxt == T_LParen:
-                result = handle_paren()
-            elif nxt == T_Word:
-                result = handle_word()
-            elif nxt == T_False:
-                result = handle_false()
-            elif nxt == T_True:
-                result = handle_true()
+            next_token = peek()
+            if next_token in valid_tokens:
+                result = token_to_function_map[next_token]()
             else:
-                result = "error"
-                print("Error in not")
-                # TODO: real errors, seriously.
+                result = _temporary_error(msg="Error in not")
             return UnaryOp(op=Not(), operand=result)
 
         # Num
@@ -254,32 +172,51 @@ class Parser:
 
         # Name
         def handle_word():
+            token_to_argument_map = {T_Plus: Add, T_Minus: Sub, T_Times: Mult, T_Over: FloorDiv}
             token = consume(T_Word)
-            nxt = peek()
-            if nxt == T_Is:
+            next_token = peek()
+            if next_token == T_Is:
                 return handle_is(token)
             else:
                 word_var = Name(id=token["value"], ctx=Load())
-                if nxt == T_Plus:
-                    return handle_binop(word_var, Add())
-                elif nxt == T_Minus:
-                    return handle_binop(word_var, Sub())
-                elif nxt == T_Times:
-                    return handle_binop(word_var, Mult())
-                elif nxt == T_Over:
-                    return handle_binop(word_var, FloorDiv())
+                if next_token in token_to_argument_map:
+                    return handle_binop(word_var, token_to_argument_map[next_token]())
                 else:
                     return word_var
 
         # True
         def handle_true():
-            token = consume(T_True)
+            consume(T_True)
             return NameConstant(value=True)
 
         # False
         def handle_false():
-            token = consume(T_False)
+            consume(T_False)
             return NameConstant(value=False)
+
+        token_to_function_map = {
+            T_Word: handle_word,
+            T_Make: handle_make,
+            T_LBrace: handle_brace,
+            T_LParen: handle_paren,
+            T_If: handle_if,
+            T_While: handle_while,
+            T_Print: handle_print,
+            T_True: handle_true,
+            T_False: handle_false,
+            T_Not: handle_not,
+            T_Quote: handle_quote,
+            T_Num: handle_num
+        }
+
+        def _get_value_from_word_token():
+            token = consume(T_Word)
+            return Name(id=token["value"], ctx=Load())
+
+        def _temporary_error(msg="error", error_value="error"):
+            print(msg)
+            # TODO: get real errors srsly
+            return error_value
 
         # Build the entirety of the Abstract Syntax tree
         return handle_mod()
