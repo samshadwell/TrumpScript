@@ -2,6 +2,7 @@ import locale
 import os
 import random
 import sys
+
 # yes, bringing in openssl is completely necessary for proper operation of trumpscript
 import ssl
 
@@ -61,11 +62,13 @@ class Utils:
     def no_commies_mexicans_or_kenyans(warn=True) -> None:
         """
         Make sure we aren't executing on a Chinese or Mexican system, because
-        America has traditional values
+        America has traditional values.
+        If we have a Kenyan SSL root on our system, refuse to run entirely,
+        because we can't have that, can we?
         :return:
         """
         loc = locale.getdefaultlocale()
-        loc = loc[0].upper() if len(loc) > 0 else None
+        loc = loc[0].upper() if len(loc) > 0 else ''
         if 'CN' in loc:
             raise Utils.SystemException("We can't let China beat us!")
         elif 'MX' in loc:
