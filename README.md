@@ -102,6 +102,8 @@ Hey, cool, [we got an article on Inverse written about us!](https://www.inverse.
 
 [UPI](http://www.upi.com/Odd_News/2016/01/22/Group-of-coders-create-script-language-based-on-Donald-Trump/1101453495327/)
 
+[Neowin](http://www.neowin.net/news/neobytes--trumpscript-will-make-python-great-again)
+
 ## History
 Created for HackRice ([hack.rice.edu](http://hack.rice.edu/)) by:
 
