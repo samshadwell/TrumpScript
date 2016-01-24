@@ -8,7 +8,6 @@ from trumpscript.constants import *
 from trumpscript.disallowed_words import DISALLOWED
 from trumpscript.utils import Utils
 
-
 class Tokenizer:
     @staticmethod
     def toke(token_type, token_value, line) -> dict:

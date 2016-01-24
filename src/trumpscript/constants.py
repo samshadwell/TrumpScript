@@ -1,6 +1,8 @@
 __author__ = 'github.com/samshadwell'
 
 # Token constants
+T_End = -1
+
 T_Plus = 0
 T_Minus = 1
 T_Times = 2
