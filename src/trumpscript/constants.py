@@ -53,5 +53,7 @@ ERROR_CODES = {
     # Don't even try to make numbers smaller than 1,000,000
     'too_small': ["I'm really rich.", "Part of the beauty of me is I'm very rich."],
     # Let them know we don't need to run as root
-    'root': ['America doesn\'t need root to be great.']
+    'root': ['America doesn\'t need root to be great.'],
+    # If we're not happy with one of this process's SSL certificates
+    'ssl': ["An 'extremely credible source' has called my office and told me that one of this process's SSL certificates is a fraud."]
 }

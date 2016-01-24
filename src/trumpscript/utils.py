@@ -2,11 +2,10 @@ import locale
 import os
 import random
 import sys
-
-from trumpscript.constants import ERROR_CODES
 # yes, bringing in openssl is completely necessary for proper operation of trumpscript
 import ssl
 
+from trumpscript.constants import ERROR_CODES
 
 class Utils:
     class SystemException(Exception):
@@ -22,7 +21,7 @@ class Utils:
                 Exception.__init__(self, random.choice(ERROR_CODES['default']))
 
     @staticmethod
-    def verify_system() -> None:
+    def verify_system(warn=True) -> None:
         """
         Verifies that this system is Trump-approved, throwing
         a SystemException otherwise
@@ -30,7 +29,7 @@ class Utils:
         """
         Utils.no_wimps()
         Utils.no_pc()
-        Utils.no_commies()
+        Utils.no_commies_mexicans_or_kenyans(warn)
 
     @staticmethod
     def warn(str, *args) -> None:
@@ -43,7 +42,7 @@ class Utils:
     @staticmethod
     def no_wimps() -> None:
         """
-        Make sure we're not executing as root
+        Make sure we're not executing as root, because America is strong
         :return:
         """
         if os.geteuid() == 0:
@@ -52,25 +51,29 @@ class Utils:
     @staticmethod
     def no_pc() -> None:
         """
-        Make sure the currently-running OS is not Windows
+        Make sure the currently-running OS is not Windows, because we're not PC
         :return:
         """
         if os.name == 'nt':
             raise Utils.SystemException('os');
 
     @staticmethod
-    def no_commies() -> None:
+    def no_commies_mexicans_or_kenyans(warn=True) -> None:
         """
-        Make sure we aren't executing on a Chinese or Mexican system
+        Make sure we aren't executing on a Chinese or Mexican system, because
+        America has traditional values
         :return:
         """
         loc = locale.getdefaultlocale()
-        if len(loc) > 0 and 'CN' in loc[0].upper():
+        loc = loc[0].upper() if len(loc) > 0 else None
+        if 'CN' in loc:
             raise Utils.SystemException("We can't let China beat us!")
-        if len(loc) > 0 and 'MX' in loc[0].upper():
+        elif 'MX' in loc:
             raise Utils.SystemException("I will build a great [fire]wall on our southern border.")
 
-        # Warn if the system has any certificates from Chinese authorities
+        # Warn if the system has any certificates from Chinese authorities.
+        # If the system has any certificates from Kenyan authorities,
+        # refuse to run entirely.
         ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
         ctx.load_default_certs()
         for cert in ctx.get_ca_certs():
@@ -80,10 +83,13 @@ class Utils:
                 # List of tuples containing PKCS#12 key/value tuples
                 kv = kv[0]
                 key, value = kv[0], kv[1]
-                if key == 'countryName' and value == 'CN':
-                    commie = True
+                if key == 'countryName':
+                    if value == 'CN':
+                        commie = True
+                    elif value == 'KE':
+                        raise Utils.SystemException('ssl')
                 elif key == 'commonName':
                     cn = value
 
-            if commie:
+            if commie and warn:
                 Utils.warn("SSL certificate `%s` (serial: %s) was made by commies!", cn, serial)
