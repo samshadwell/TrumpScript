@@ -3,31 +3,41 @@
 
 from ast import *
 
-from src.trumpscript.constants import *
+from trumpscript.constants import *
 
 
 class Parser:
 
     def __init__(self):
-        self.token_to_function_map = {
-                T_Word: self.handle_word,
-                T_Make: self.handle_make,
-                T_LBrace: self.handle_brace,
-                T_LParen: self.handle_paren,
-                T_If: self.handle_if,
-                T_While: self.handle_while,
-                T_Print: self.handle_print,
-                T_True: self.handle_true,
-                T_False: self.handle_false,
-                T_Not: self.handle_not,
-                T_Quote: self.handle_quote,
-                T_Num: self.handle_num
+        self._token_to_function_map = {
+            T_Word: self.handle_word,
+            T_Make: self.handle_make,
+            T_LBrace: self.handle_brace,
+            T_LParen: self.handle_paren,
+            T_If: self.handle_if,
+            T_While: self.handle_while,
+            T_Print: self.handle_print,
+            T_True: self.handle_true,
+            T_False: self.handle_false,
+            T_Not: self.handle_not,
+            T_Quote: self.handle_quote,
+            T_Num: self.handle_num
         }
+
+    def _get_value_from_word_token(self, tokens):
+        token = self.consume(tokens, T_Word)
+        return Name(id=token["value"], ctx=Load())
 
     def parse(self, tokens) -> AST:
         filtered = self.filter_tokens(tokens)
         # Build the entirety of the Abstract Syntax tree
         return self.handle_module(filtered)
+
+    @staticmethod
+    def _temporary_error(msg="error", error_value="error"):
+        print(msg)
+        # TODO: get real errors srsly
+        return error_value
 
     @staticmethod
     def filter_tokens(tokens) -> list:
@@ -91,7 +101,7 @@ class Parser:
     def handle_anything(self, tokens):
         start = self.peek(tokens)
         try:
-            return self.token_to_function_map[start](tokens)
+            return self._token_to_function_map[start](tokens)
         except KeyError:
             tokens.pop(0)
             return Pass(), tokens
@@ -100,7 +110,7 @@ class Parser:
     def handle_brace(self, tokens) -> (stmt, list):
         brace_contents = []
         cur_token = tokens.pop(0)
-        while cur_token["type"] != T_RBrace:
+        while cur_token["type"] != T_RBrace :
             # TODO edge case error
             brace_contents.append(cur_token)
             cur_token = tokens.pop(0)
@@ -114,7 +124,7 @@ class Parser:
                 print("Called handle_brace on a non-terminated brace")
             res, contents = self.handle_anything(brace_contents)
             if isinstance(res, expr):
-                res = Expr(value=res)  # TODO: does it make sense to cast expressions to statements here?
+                res = Expr(value=res) #TODO: does it make sense to cast expressions to statements here?
             statements.append(res)
         return statements, tokens
 
@@ -122,46 +132,53 @@ class Parser:
     def handle_paren(self, tokens) -> (expr, list):
         paren_contents = []
         cur_token = tokens.pop(0)
-        while cur_token["type"] != T_RParen:
+        while cur_token["type"] != T_RParen :
             paren_contents.append(cur_token)
             cur_token = tokens.pop(0)
         paren_contents.append(cur_token)
 
         self.consume(paren_contents, T_LParen)
         expression, contents = self.handle_anything(paren_contents)
-        if self.peek(contents) != T_RParen:
-            # TODO: real erros
+        if self.peek(contents) != T_RParen :
+            #TODO: real erros
             print("passed in parenthetical with more than one expression")
         self.consume(contents, T_RParen)
         return expression, tokens
 
     # Assign
     def handle_make(self, tokens) -> (stmt, list):
-        valid_tokens = [T_Word, T_LParen, T_True, T_False, T_Not, T_Quote, T_Num]
+        valid_tokens = [T_LParen, T_True, T_False, T_Not, T_Quote, T_Num]
+
         self.consume(tokens, T_Make)
+        if self.peek(tokens) != T_Word :
+            #TODO: write this fucking error
+            print("Ooh, what you making there? It sure isn't a variable, that's for goddamn sure!")
         variable = self.consume(tokens, T_Word)
-        next_token = self.peek(tokens)  # Check the type of the next token to see if it's acceptable
-        if next_token == T_Word:
-            val = self._get_value_from_word_token(tokens)
-        elif next_token in valid_tokens:
-            val = self.token_to_function_map[next_token](tokens)
+
+        followup = self.peek(tokens)  # Check the type of the next token to see if it's acceptable
+        if followup == T_Word:
+            val = self._get_value_from_word_token(follwup)
+        elif followup in valid_tokens:
+            val, tokens = self._token_to_function_map[followup](tokens)
         else:
-            val = _temporary_error(msg="garbageerror")
+            val = _temporary_error(msg="make_error")
+
         target = Name(id=variable["value"], ctx=Store())
         return Assign(targets=[target], value=val), tokens
 
     # Both Assign and EQ because why the hell not guys
     # Note that this does not have type signature because it can be expr or stmt (yeah it blows))
     def handle_is(self, left, tokens):
-        valid_tokens = [T_Word, T_LParen, T_True, T_False, T_Not, T_Quote, T_Num]
+        valid_tokens = [T_LParen, T_True, T_False, T_Not, T_Quote, T_Num]
         self.consume(tokens, T_Is)
-        next_token = self.peek(tokens)  # Check the type of the next token to see if it's acceptable
-        if next_token == T_Word:
+        followup = self.peek(tokens)  # Check the type of the next token to see if it's acceptable
+        if followup == T_Word:
             right = self._get_value_from_word_token(tokens)
-        elif next_token in valid_tokens:
-            right = self.token_to_function_map[next_token](tokens)
+        elif followup in valid_tokens:
+            right, tokens = self._token_to_function_map[followup](tokens)
         else:
             right = _temporary_error(msg="is_error")
+
         if self.peek(tokens) == T_Question:
             self.consume(tokens, T_Question)
             first = Name(id=left["value"], ctx=Load())
@@ -174,11 +191,12 @@ class Parser:
     def handle_print(self, tokens) -> (stmt, list):
         valid_tokens = [T_Quote, T_LParen, T_Num, T_True, T_False, T_Word]
         self.consume(tokens, T_Print)
-        next_token = self.peek(tokens)
-        if next_token in valid_tokens:
-            output = self.token_to_function_map[next_token](tokens)
+        followup = self.peek(tokens)
+        if followup in valid_tokens:
+            output, tokens = self._token_to_function_map[followup](tokens)
         else:
-            output = _temporary_error(msg="Print broke")
+            output = _temporary_error(msg="print_error")
+
         return Call(func=Name(id="print", ctx=Load()), args=[output], keywords=[]), tokens
 
     # While
@@ -186,7 +204,7 @@ class Parser:
         self.consume(tokens, T_While)
         conditional, tokens = self.handle_paren(tokens)
         body, tokens = self.handle_brace(tokens)
-        return While(test=conditional, body=body, orelse=[]), tokens
+        return While(test=conditional,body=body, orelse=[]), tokens
 
     # If
     def handle_if(self, tokens) -> (stmt, list):
@@ -197,7 +215,7 @@ class Parser:
             orelse, tokens = self.handle_else(tokens)
         else:
             orelse = []
-        return If(test=conditional, body=body, orelse=orelse), tokens
+        return If(test=conditional,body=body, orelse=orelse), tokens
 
     # orelse piece of if
     def handle_else(self, tokens) -> (stmt, list):
@@ -208,26 +226,31 @@ class Parser:
             return self.handle_brace(tokens)
 
     # BinOp(s)
+    # TODO: what the fuck is going on here? I wrote this at 9am after nigh 24 hours of wakefulness
     def handle_binop(self, left, op, tokens):
-        valid_tokens = [T_LParen, T_Quote, T_Num, T_Word]
+        valid_tokens = [T_LParen, T_Quote, T_Num]
         tokens.pop(0)
-        next_token = self.peek(tokens)
-        if next_token in valid_tokens:
-            right = self.token_to_function_map[next_token](tokens)
+        nxt = self.peek(tokens)
+        if nxt == T_Word:
+            right = self._get_value_from_word_token(tokens)
+        elif nxt in valid_tokens:
+            right, tokens = self._token_to_function_map[nxt](tokens)
         else:
-            right = _temporary_error(msg="not valid binary op target error")
+            right = _temporary_error(msg="binop_error")
+
         return BinOp(left=left, op=op, right=right), tokens
 
     # Not
     def handle_not(self, tokens):
         valid_tokens = [T_LParen, T_Word, T_False, T_True]
         self.consume(tokens, T_Not)
-        next_token = self.peek(tokens)
-        if next_token in valid_tokens:
-            result = self.token_to_function_map[next_token](tokens)
+        nxt = self.peek(tokens)
+        if nxt in valid_tokens:
+            result, tokens = self._token_to_function_map[nxt](tokens)
         else:
-            result = _temporary_error(msg="Error in not")
-        return UnaryOp(op=Not(), operand=result), tokens
+            result = _temporary_error(msg="not_error")
+
+        return UnaryOp(op=Not(),operand=result), tokens
 
     # Num
     def handle_num(self, tokens):
@@ -245,15 +268,15 @@ class Parser:
 
     # Name
     def handle_word(self, tokens):
-        token_to_argument_map = {T_Plus: Add, T_Minus: Sub, T_Times: Mult, T_Over: FloorDiv}
+        token_to_argument_map = {T_Plus: Add, T_Minus: Sub, T_Times: Mult, T_Over: Div}
         token = self.consume(tokens, T_Word)
-        next_token = self.peek(tokens)
-        if next_token == T_Is:
+        nxt = self.peek(tokens)
+        if nxt == T_Is:
             return self.handle_is(token, tokens)
         else:
             word_var = Name(id=token["value"], ctx=Load())
-            if next_token in token_to_argument_map:
-                return handle_binop(word_var, token_to_argument_map[next_token](), tokens)
+            if nxt in token_to_argument_map:
+                return self.handle_binop(word_var, token_to_argument_map[nxt]()), tokens
             else:
                 return word_var, tokens
 
@@ -266,13 +289,3 @@ class Parser:
     def handle_false(self, tokens):
         self.consume(tokens, T_False)
         return NameConstant(value=False), tokens
-
-    def _get_value_from_word_token(self, tokens):
-        token = self.consume(tokens, T_Word)
-        return Name(id=token["value"], ctx=Load())
-
-    @staticmethod
-    def _temporary_error(msg="error", error_value="error"):
-        print(msg)
-        # TODO: get real errors srsly
-        return error_value
