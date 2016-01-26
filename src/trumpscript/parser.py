@@ -280,7 +280,7 @@ class Parser:
         else:
             word_var = Name(id=token["value"], ctx=Load())
             if nxt in token_to_argument_map:
-                return self.handle_binop(word_var, token_to_argument_map[nxt](), tokens)
+                return self.handle_binop(word_var, token_to_argument_map[nxt](), tokens), tokens
             else:
                 return word_var, tokens
 
