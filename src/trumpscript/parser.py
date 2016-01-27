@@ -75,11 +75,15 @@ class Parser:
     def peek(tokens):
         return tokens[0]["type"]
 
+    @staticmethod
+    def on_line(tokens):
+        return tokens[0]["line"]
+
     def consume(self, tokens, t_type) -> dict:
         if self.peek(tokens) == t_type:
             return tokens.pop(0)
         else:
-            print("failed to consume " + str(t_type) + ", got " + str(self.peek(tokens)) + "instead.")
+            print("failed to consume " + str(t_type) + ", got " + str(self.peek(tokens)) + " instead on line " + str(self.on_line(tokens)) + ".")
             pass
 
     # Mod
@@ -161,7 +165,7 @@ class Parser:
         elif followup in valid_tokens:
             val, tokens = self._token_to_function_map[followup](tokens)
         else:
-            val = _temporary_error(msg="make_error")
+            val = self._temporary_error(msg="make_error")
 
         target = Name(id=variable["value"], ctx=Store())
         return Assign(targets=[target], value=val), tokens
@@ -177,7 +181,7 @@ class Parser:
         elif followup in valid_tokens:
             right, tokens = self._token_to_function_map[followup](tokens)
         else:
-            right = _temporary_error(msg="is_error")
+            right = self._temporary_error(msg="is_error")
 
         if self.peek(tokens) == T_Question:
             self.consume(tokens, T_Question)
@@ -195,7 +199,7 @@ class Parser:
         if followup in valid_tokens:
             output, tokens = self._token_to_function_map[followup](tokens)
         else:
-            output = _temporary_error(msg="print_error")
+            output = self._temporary_error(msg="print_error")
 
         return Call(func=Name(id="print", ctx=Load()), args=[output], keywords=[]), tokens
 
@@ -236,7 +240,7 @@ class Parser:
         elif nxt in valid_tokens:
             right, tokens = self._token_to_function_map[nxt](tokens)
         else:
-            right = _temporary_error(msg="binop_error")
+            right = self._temporary_error(msg="binop_error")
 
         return BinOp(left=left, op=op, right=right), tokens
 
@@ -248,7 +252,7 @@ class Parser:
         if nxt in valid_tokens:
             result, tokens = self._token_to_function_map[nxt](tokens)
         else:
-            result = _temporary_error(msg="not_error")
+            result = self._temporary_error(msg="not_error")
 
         return UnaryOp(op=Not(),operand=result), tokens
 
@@ -276,7 +280,7 @@ class Parser:
         else:
             word_var = Name(id=token["value"], ctx=Load())
             if nxt in token_to_argument_map:
-                return self.handle_binop(word_var, token_to_argument_map[nxt]()), tokens
+                return self.handle_binop(word_var, token_to_argument_map[nxt](), tokens)
             else:
                 return word_var, tokens
 
