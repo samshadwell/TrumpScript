@@ -195,22 +195,29 @@ class Parser:
 
     def handle_ineq(self, left, tokens):
         valid_tokens = [T_LParen, T_True, T_False, T_Quote, T_Num]
+        token_to_argument_map = {T_Less: Lt, T_Greater: Gt}
+        
         cmpop = None
-        if self.peek(tokens) == T_Greater:
-            cmpop = Gt()
-            self.consume(tokens, T_Greater)    
-        else:
-            cmpop = Lt()
-            self.consume(tokens, T_Less)
+        op = self.peek(tokens)
+        try:
+            cmpop = token_to_argument_map[op]()
+            self.consume(tokens, op)
+        except KeyError:
+            self._temporary_error('ineq_error')
+        
         followup = self.peek(tokens)
         if followup == T_Word:
             right = self._get_value_from_word_token(tokens)
         elif followup in valid_tokens:
             right, tokens = self._token_to_function_map[followup](tokens)
         else:
-            right = self._temporary_error(msg="less_error")
+            right = self._temporary_error(msg="ineq_error")
 
-        first = Name(id=left["value"], ctx=Load())
+        first = None
+        if left['type'] == T_Num:
+            first = Num(left['value'])
+        else:
+            first = Name(id=left["value"], ctx=Load())
         return Compare(left=first, ops=[cmpop], comparators=[right]), tokens
 
     # Print
@@ -280,8 +287,17 @@ class Parser:
 
     # Num
     def handle_num(self, tokens):
+        token_to_argument_map = {T_Plus: Add, T_Minus: Sub, T_Times: Mult, T_Over: Div}
         token = self.consume(tokens, T_Num)
         num = token["value"]
+        nxt = self.peek(tokens)
+        if nxt == T_Less or nxt == T_Greater:
+            return self.handle_ineq(token, tokens)
+        else:
+            if nxt in token_to_argument_map:
+                return self.handle_binop(num, token_to_argument_map[nxt](), tokens)
+            else:
+                return Num(num), tokens
         # TODO: check for a longer expression
         return Num(num), tokens
 
