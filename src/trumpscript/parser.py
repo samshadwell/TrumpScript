@@ -200,10 +200,13 @@ class Parser:
 
     def handle_ineq(self, left, tokens):
         valid_tokens = [T_LParen, T_True, T_False, T_Quote, T_Num]
-        cmpop = Lt()
+        cmpop = None
         if self.peek(tokens) == T_Greater:
             cmpop = Gt()
-        self.consume(tokens, T_Less)
+            self.consume(tokens, T_Greater)    
+        else:
+            cmpop = Lt()
+            self.consume(tokens, T_Less)
         followup = self.peek(tokens)
         if followup == T_Word:
             right = self._get_value_from_word_token(tokens)
