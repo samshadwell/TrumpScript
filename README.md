@@ -71,7 +71,7 @@ If this page entertained you, consider making a donation to your favorite charit
 
 I'm a fan of the [Electronic Frontier Foundation](https://www.eff.org), [donate here](https://supporters.eff.org/donate/button)
 
-There's also [Bernie Sanders](https://go.berniesanders.com/page/contribute/splash), [Hillary Clinton](https://www.hillaryclinton.com/contribute/donate/), [Martin O'Malley](https://martinomalley.com/donate/), and of course [Donald Trump himself. ](http://www.reactiongifs.com/r/saywha.gif)
+There's also [Bernie Sanders](https://go.berniesanders.com/page/contribute/splash), [Hillary Clinton](https://www.hillaryclinton.com/contribute/donate/), [Martin O'Malley](https://martinomalley.com/donate/), [Rand Paul](https://secure.randpaul.com/), and of course [Donald Trump himself. ](http://www.reactiongifs.com/r/saywha.gif)
 
 ## Because We've Sold Out
 If you're feeling extra generous, you can also buy us a beer (or two) for more brainstorming via:
