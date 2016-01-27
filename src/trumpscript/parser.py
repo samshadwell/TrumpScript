@@ -187,11 +187,21 @@ class Parser:
 
         if self.peek(tokens) == T_Question:
             self.consume(tokens, T_Question)
-            first = Name(id=left["value"], ctx=Load())
+            first = None
+            if left['type'] == T_Num:
+                first = Num(left['value'])
+            elif left['type'] == T_Quote:
+                first = Str(left['value'])
+            else:
+                first = Name(id=left["value"], ctx=Load())
             return Compare(left=first, ops=[Eq()], comparators=[right]), tokens
         else:
-            target = Name(id=left["value"], ctx=Store())
-            return Assign(targets=[target], value=right), tokens
+            if left["type"] == T_Word:
+                target = Name(id=left["value"], ctx=Store())
+                return Assign(targets=[target], value=right), tokens
+            else:
+                target = self._temporary_error(msg="is_error")
+                return Pass(), tokens
 
     def handle_ineq(self, left, tokens):
         valid_tokens = [T_LParen, T_True, T_False, T_Quote, T_Num]
@@ -216,6 +226,8 @@ class Parser:
         first = None
         if left['type'] == T_Num:
             first = Num(left['value'])
+        elif left['type'] == T_Quote:
+            first = Str(left['value'])
         else:
             first = Name(id=left["value"], ctx=Load())
         return Compare(left=first, ops=[cmpop], comparators=[right]), tokens
@@ -289,15 +301,17 @@ class Parser:
     def handle_num(self, tokens):
         token_to_argument_map = {T_Plus: Add, T_Minus: Sub, T_Times: Mult, T_Over: Div}
         token = self.consume(tokens, T_Num)
-        num = token["value"]
         nxt = self.peek(tokens)
+        if nxt == T_Is:
+            return self.handle_is(token, tokens)
         if nxt == T_Less or nxt == T_Greater:
             return self.handle_ineq(token, tokens)
         else:
+            num = Num(token["value"])
             if nxt in token_to_argument_map:
                 return self.handle_binop(num, token_to_argument_map[nxt](), tokens)
             else:
-                return Num(num), tokens
+                return num, tokens
         # TODO: check for a longer expression
 
     # Str
@@ -305,7 +319,13 @@ class Parser:
         token = self.consume(tokens, T_Quote)
         text = token["value"]
         # TODO: check for a longer expression
-        return Str(text), tokens
+        nxt = self.peek(tokens)
+        if nxt == T_Is:
+            return self.handle_is(token, tokens)
+        elif nxt == T_Less or nxt == T_Greater:
+            return self.handle_ineq(token, tokens)
+        else:
+            return Str(text), tokens
 
     # Name
     def handle_word(self, tokens):
