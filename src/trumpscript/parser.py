@@ -119,10 +119,7 @@ class Parser:
         while cur_token["type"] != T_RBrace :
             # TODO edge case error
             brace_contents.append(cur_token)
-            if len(tokens)>0:
-                cur_token = tokens.pop(0)
-            else:
-                cur_token = {'type': T_RBrace, 'line': cur_token['line'], 'value': None}
+            cur_token = tokens.pop(0)
         brace_contents.append(cur_token)
 
         self.consume(brace_contents, T_LBrace)
@@ -148,11 +145,9 @@ class Parser:
 
         self.consume(paren_contents, T_LParen)
         expression, contents = self.handle_anything(paren_contents)
-        if len(contents) > 0 and self.peek(contents) != T_RParen :
+        if self.peek(contents) != T_RParen :
             #TODO: real erros
             print("passed in parenthetical with more than one expression")
-        elif len(contents) == 0:
-            print("passed in incomplete parenthetical")
         self.consume(contents, T_RParen)
         return expression, tokens
 
@@ -215,7 +210,6 @@ class Parser:
         else:
             right = self._temporary_error(msg="less_error")
 
-        self.consume(tokens, T_Question)
         first = Name(id=left["value"], ctx=Load())
         return Compare(left=first, ops=[cmpop], comparators=[right]), tokens
 
