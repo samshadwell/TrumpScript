@@ -299,7 +299,6 @@ class Parser:
             else:
                 return Num(num), tokens
         # TODO: check for a longer expression
-        return Num(num), tokens
 
     # Str
     def handle_quote(self, tokens):
