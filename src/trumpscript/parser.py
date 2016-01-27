@@ -21,7 +21,9 @@ class Parser:
             T_False: self.handle_false,
             T_Not: self.handle_not,
             T_Quote: self.handle_quote,
-            T_Num: self.handle_num
+            T_Num: self.handle_num,
+            T_Less: self.handle_ineq,
+            T_Greater: self.handle_ineq
         }
 
     def _get_value_from_word_token(self, tokens):
@@ -117,7 +119,10 @@ class Parser:
         while cur_token["type"] != T_RBrace :
             # TODO edge case error
             brace_contents.append(cur_token)
-            cur_token = tokens.pop(0)
+            if len(tokens)>0:
+                cur_token = tokens.pop(0)
+            else:
+                cur_token = {'type': T_RBrace, 'line': cur_token['line'], 'value': None}
         brace_contents.append(cur_token)
 
         self.consume(brace_contents, T_LBrace)
@@ -143,9 +148,11 @@ class Parser:
 
         self.consume(paren_contents, T_LParen)
         expression, contents = self.handle_anything(paren_contents)
-        if self.peek(contents) != T_RParen :
+        if len(contents) > 0 and self.peek(contents) != T_RParen :
             #TODO: real erros
             print("passed in parenthetical with more than one expression")
+        elif len(contents) == 0:
+            print("passed in incomplete parenthetical")
         self.consume(contents, T_RParen)
         return expression, tokens
 
@@ -190,6 +197,24 @@ class Parser:
         else:
             target = Name(id=left["value"], ctx=Store())
             return Assign(targets=[target], value=right), tokens
+
+    def handle_ineq(self, left, tokens):
+        valid_tokens = [T_LParen, T_True, T_False, T_Quote, T_Num]
+        cmpop = Lt()
+        if self.peek(tokens) == T_Greater:
+            cmpop = Gt()
+        self.consume(tokens, T_Less)
+        followup = self.peek(tokens)
+        if followup == T_Word:
+            right = self._get_value_from_word_token(tokens)
+        elif followup in valid_tokens:
+            right, tokens = self._token_to_function_map[followup](tokens)
+        else:
+            right = self._temporary_error(msg="less_error")
+
+        self.consume(tokens, T_Question)
+        first = Name(id=left["value"], ctx=Load())
+        return Compare(left=first, ops=[cmpop], comparators=[right]), tokens
 
     # Print
     def handle_print(self, tokens) -> (stmt, list):
@@ -277,6 +302,8 @@ class Parser:
         nxt = self.peek(tokens)
         if nxt == T_Is:
             return self.handle_is(token, tokens)
+        elif nxt == T_Less or nxt == T_Greater:
+            return self.handle_ineq(token, tokens)
         else:
             word_var = Name(id=token["value"], ctx=Load())
             if nxt in token_to_argument_map:
