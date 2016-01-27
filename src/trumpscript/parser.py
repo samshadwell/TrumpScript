@@ -203,7 +203,7 @@ class Parser:
             cmpop = token_to_argument_map[op]()
             self.consume(tokens, op)
         except KeyError:
-            self._temporary_error('ineq_error')
+            cmpop = self._temporary_error(msg='ineq_error')
         
         followup = self.peek(tokens)
         if followup == T_Word:
