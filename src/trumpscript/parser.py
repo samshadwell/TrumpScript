@@ -163,7 +163,7 @@ class Parser:
 
         followup = self.peek(tokens)  # Check the type of the next token to see if it's acceptable
         if followup == T_Word:
-            val = self._get_value_from_word_token(follwup)
+            val = self._get_value_from_word_token(tokens)
         elif followup in valid_tokens:
             val, tokens = self._token_to_function_map[followup](tokens)
         else:
