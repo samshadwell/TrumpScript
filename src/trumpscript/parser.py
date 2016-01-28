@@ -21,7 +21,7 @@ class Parser:
             T_False: self.handle_false,
             T_Not: self.handle_not,
             T_Quote: self.handle_quote,
-            T_Num: self.handle_num,
+            T_Num: self.handle_num
         }
 
     def _get_value_from_word_token(self, tokens):
