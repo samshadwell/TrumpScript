@@ -64,6 +64,21 @@ The exciting parts:
 * While loops are denoted via `as long as`. And that's the only type of loop you need anyway
 * If a 'word' (so anything that could be a variable name) is deemed unnecessary by the compiler, it's simply thrown away. So you can make truly self documenting code, or code that appear to read very very similarly to real speeches by the big man himself. You can find some interesting examples in our `test/test_files` directory
 
+Example:
+```
+What are we in this country
+Hillary speaks nothing but lies
+But look at me I came to this election to make guys
+believe again
+believe in fact
+if, all of us real lies the light; : say "VOTE TRUMP" !
+but I know we should be free
+else the result will be bad: all the work of George
+Washington was for nothing
+so this election say "Hello World" say "TRUMP FOR PRESIDENT"!
+America is great.
+```
+
 But most importantly, Trump doesn't like to talk about his failures. So a lot of the time your code will fail, and it will do so silently. Just think of debugging as a fun little game.
 
 ## Because We Pretend We're Good People
