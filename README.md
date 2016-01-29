@@ -66,17 +66,17 @@ The exciting parts:
 
 Example:
 ```
-Make Donald 15000000.
-Nothing is, 1000000 minus 1000000;
-The fortune of Hillary is nothing.
-As long as, Donald is not Hillary; Do this:
-If, Donald over 15000000 is nothing; Then: say "Fiorina Biden"!
-Else if, Donald over 5000000 is nothing; Then: say "Fiorina"!
-Else if, Donald over 3000000 is nothing; Then: say "Biden"!
-Else: say Donald!
-The fortune of Donald is, old Donald minus 1000000;
-Amazing!
-America is Great.
+What are we in this country
+Hillary speaks nothing but lies
+But look at me I came to this election to make guys
+believe again
+believe in fact
+if, all of us real lies the light; : say "VOTE TRUMP" !
+but I know we should be free
+else the result will be bad: all the work of George
+Washington was for nothing
+so this election say "Hello World" say "TRUMP FOR PRESIDENT"!
+America is great.
 ```
 
 But most importantly, Trump doesn't like to talk about his failures. So a lot of the time your code will fail, and it will do so silently. Just think of debugging as a fun little game.
