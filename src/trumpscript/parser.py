@@ -204,7 +204,7 @@ class Parser:
     def handle_ineq(self, left, tokens):
         valid_tokens = [T_LParen, T_True, T_False, T_Quote, T_Num]
         token_to_argument_map = {T_Less: Lt, T_Greater: Gt}
-        
+
         cmpop = None
         op = self.peek(tokens)
         try:
@@ -212,7 +212,7 @@ class Parser:
             self.consume(tokens, op)
         except KeyError:
             cmpop = self._temporary_error(msg='ineq_error')
-        
+
         followup = self.peek(tokens)
         if followup == T_Word:
             right = self._get_value_from_word_token(tokens)
