@@ -161,7 +161,7 @@ class Parser:
 
         followup = self.peek(tokens)  # Check the type of the next token to see if it's acceptable
         if followup == T_Word:
-            val = self._get_value_from_word_token(follwup)
+            val = self._get_value_from_word_token(tokens)
         elif followup in valid_tokens:
             val, tokens = self._token_to_function_map[followup](tokens)
         else:
@@ -185,11 +185,50 @@ class Parser:
 
         if self.peek(tokens) == T_Question:
             self.consume(tokens, T_Question)
-            first = Name(id=left["value"], ctx=Load())
+            first = None
+            if left['type'] == T_Num:
+                first = Num(left['value'])
+            elif left['type'] == T_Quote:
+                first = Str(left['value'])
+            else:
+                first = Name(id=left["value"], ctx=Load())
             return Compare(left=first, ops=[Eq()], comparators=[right]), tokens
         else:
-            target = Name(id=left["value"], ctx=Store())
-            return Assign(targets=[target], value=right), tokens
+            if left["type"] == T_Word:
+                target = Name(id=left["value"], ctx=Store())
+                return Assign(targets=[target], value=right), tokens
+            else:
+                target = self._temporary_error(msg="is_error")
+                return Pass(), tokens
+
+    def handle_ineq(self, left, tokens):
+        valid_tokens = [T_LParen, T_True, T_False, T_Quote, T_Num]
+        token_to_argument_map = {T_Less: Lt, T_Greater: Gt}
+
+        cmpop = None
+        op = self.peek(tokens)
+        try:
+            cmpop = token_to_argument_map[op]()
+            self.consume(tokens, op)
+        except KeyError:
+            cmpop = self._temporary_error(msg='ineq_error')
+
+        followup = self.peek(tokens)
+        if followup == T_Word:
+            right = self._get_value_from_word_token(tokens)
+        elif followup in valid_tokens:
+            right, tokens = self._token_to_function_map[followup](tokens)
+        else:
+            right = self._temporary_error(msg="ineq_error")
+
+        first = None
+        if left['type'] == T_Num:
+            first = Num(left['value'])
+        elif left['type'] == T_Quote:
+            first = Str(left['value'])
+        else:
+            first = Name(id=left["value"], ctx=Load())
+        return Compare(left=first, ops=[cmpop], comparators=[right]), tokens
 
     # Print
     def handle_print(self, tokens) -> (stmt, list):
@@ -258,17 +297,33 @@ class Parser:
 
     # Num
     def handle_num(self, tokens):
+        token_to_argument_map = {T_Plus: Add, T_Minus: Sub, T_Times: Mult, T_Over: Div}
         token = self.consume(tokens, T_Num)
-        num = token["value"]
+        nxt = self.peek(tokens)
+        if nxt == T_Is:
+            return self.handle_is(token, tokens)
+        if nxt == T_Less or nxt == T_Greater:
+            return self.handle_ineq(token, tokens)
+        else:
+            num = Num(token["value"])
+            if nxt in token_to_argument_map:
+                return self.handle_binop(num, token_to_argument_map[nxt](), tokens)
+            else:
+                return num, tokens
         # TODO: check for a longer expression
-        return Num(num), tokens
 
     # Str
     def handle_quote(self, tokens):
         token = self.consume(tokens, T_Quote)
         text = token["value"]
         # TODO: check for a longer expression
-        return Str(text), tokens
+        nxt = self.peek(tokens)
+        if nxt == T_Is:
+            return self.handle_is(token, tokens)
+        elif nxt == T_Less or nxt == T_Greater:
+            return self.handle_ineq(token, tokens)
+        else:
+            return Str(text), tokens
 
     # Name
     def handle_word(self, tokens):
@@ -277,6 +332,8 @@ class Parser:
         nxt = self.peek(tokens)
         if nxt == T_Is:
             return self.handle_is(token, tokens)
+        elif nxt == T_Less or nxt == T_Greater:
+            return self.handle_ineq(token, tokens)
         else:
             word_var = Name(id=token["value"], ctx=Load())
             if nxt in token_to_argument_map:
