@@ -15,6 +15,7 @@ class Parser:
             T_LBrace: self.handle_brace,
             T_LParen: self.handle_paren,
             T_If: self.handle_if,
+            T_Mod: self.handle_mod,
             T_While: self.handle_while,
             T_Print: self.handle_print,
             T_True: self.handle_true,
@@ -59,6 +60,8 @@ class Parser:
                     if prev[t] == T_Make:
                         variables.add(token["value"])
                     elif nxt[t] == T_Is:
+                        variables.add(token["value"])
+                    elif nxt[t] == T_Input:
                         variables.add(token["value"])
                     else:
                         tokens.pop(i)
@@ -114,8 +117,17 @@ class Parser:
     def handle_brace(self, tokens) -> (stmt, list):
         brace_contents = []
         cur_token = tokens.pop(0)
-        while cur_token["type"] != T_RBrace :
+        level = -1
+        while cur_token["type"] != T_RBrace or level > 0:
             # TODO edge case error
+            if cur_token["type"] == T_LBrace:
+                #we got the left brace of the actual structure
+                #the  first time
+                print("level up")
+                level += 1
+            if cur_token["type"] == T_RBrace:
+                print("level down")
+                level -= 1
             brace_contents.append(cur_token)
             cur_token = tokens.pop(0)
         brace_contents.append(cur_token)
@@ -148,10 +160,24 @@ class Parser:
             print("passed in parenthetical with more than one expression")
         self.consume(contents, T_RParen)
         return expression, tokens
-
+        
+    def handle_mod(self,tokens) -> (expr, list):
+        valid_tokens = [T_LParen, T_Num]
+        self.consume(tokens, T_Mod)
+        followup = self.peek(tokens)
+        if followup == T_Word:
+            right = self._get_value_from_word_token(tokens)
+            ar = Call(func=Name(id="float", ctx=Load()), args=[right], keywords=[])
+            return Call(func=Name(id="int", ctx=Load()), args=[ar], keywords=[]), tokens
+        elif followup in valid_tokens:
+            right, tokens = self._token_to_function_map[followup](tokens)
+            ar = Call(func=Name(id="float", ctx=Load()), args=[right], keywords=[])
+            return Call(func=Name(id="int", ctx=Load()), args=[ar], keywords=[]), tokens
+        #return Num(right['value']), tokens
+        
     # Assign
     def handle_make(self, tokens) -> (stmt, list):
-        valid_tokens = [T_LParen, T_True, T_False, T_Not, T_Quote, T_Num]
+        valid_tokens = [T_LParen, T_True, T_False, T_Not, T_Quote, T_Num, T_Mod]
 
         self.consume(tokens, T_Make)
         if self.peek(tokens) != T_Word :
@@ -173,7 +199,7 @@ class Parser:
     # Both Assign and EQ because why the hell not guys
     # Note that this does not have type signature because it can be expr or stmt (yeah it blows))
     def handle_is(self, left, tokens):
-        valid_tokens = [T_LParen, T_True, T_False, T_Not, T_Quote, T_Num]
+        valid_tokens = [T_LParen, T_True, T_False, T_Not, T_Quote, T_Num, T_Mod]
         self.consume(tokens, T_Is)
         followup = self.peek(tokens)  # Check the type of the next token to see if it's acceptable
         if followup == T_Word:
@@ -232,16 +258,24 @@ class Parser:
 
     # Print
     def handle_print(self, tokens) -> (stmt, list):
-        valid_tokens = [T_Quote, T_LParen, T_Num, T_True, T_False, T_Word]
+        valid_tokens = [T_Quote, T_LParen, T_Num, T_True, T_False, T_Word, T_Mod, T_Not]
         self.consume(tokens, T_Print)
         followup = self.peek(tokens)
         if followup in valid_tokens:
             output, tokens = self._token_to_function_map[followup](tokens)
         else:
+            print(followup)
             output = self._temporary_error(msg="print_error")
 
         return Call(func=Name(id="print", ctx=Load()), args=[output], keywords=[]), tokens
 
+    def handle_input(self, left, tokens) -> (stmt, list):
+        valid_tokens = [T_Word]
+        self.consume(tokens, T_Input)
+        if left['type'] == T_Word:
+            target = Name(id=left['value'], ctx=Store())
+            fu = Call(func=Name(id="input", ctx=Load()), args=[], keywords=[])
+        return Assign([target], fu), tokens
     # While
     def handle_while(self, tokens) -> (stmt, list):
         self.consume(tokens, T_While)
@@ -254,7 +288,7 @@ class Parser:
         self.consume(tokens, T_If)
         conditional, tokens = self.handle_paren(tokens)
         body, tokens = self.handle_brace(tokens)
-        if self.peek(tokens) == T_Else:
+        if len(tokens) > 0 and self.peek(tokens) == T_Else:
             orelse, tokens = self.handle_else(tokens)
         else:
             orelse = []
@@ -271,7 +305,7 @@ class Parser:
     # BinOp(s)
     # TODO: what the fuck is going on here? I wrote this at 9am after nigh 24 hours of wakefulness
     def handle_binop(self, left, op, tokens):
-        valid_tokens = [T_LParen, T_Quote, T_Num]
+        valid_tokens = [T_LParen, T_Quote, T_Num, T_True, T_False]
         tokens.pop(0)
         nxt = self.peek(tokens)
         if nxt == T_Word:
@@ -325,6 +359,18 @@ class Parser:
         else:
             return Str(text), tokens
 
+    def handle_boolop(self, left, op, tokens):
+        valid_tokens = [T_LParen, T_True, T_False]
+        tokens.pop(0)
+        nxt = self.peek(tokens)
+        if nxt == T_Word:
+            right = self._get_value_from_word_token(tokens)
+        elif nxt in valid_tokens:
+            right, tokens = self._token_to_function_map[nxt](tokens)
+        else:
+            right = self._temporary_error(msg="binop_error")
+
+        return BoolOp(op=op(), values=[left,right]), tokens
     # Name
     def handle_word(self, tokens):
         token_to_argument_map = {T_Plus: Add, T_Minus: Sub, T_Times: Mult, T_Over: Div}
@@ -334,6 +380,11 @@ class Parser:
             return self.handle_is(token, tokens)
         elif nxt == T_Less or nxt == T_Greater:
             return self.handle_ineq(token, tokens)
+        elif nxt == T_Or or nxt == T_And:
+            word_var = Name(id=token["value"], ctx=Load())
+            return self.handle_boolop(word_var,Or if nxt == T_Or else And, tokens)
+        elif nxt == T_Input:
+            return self.handle_input(token, tokens)
         else:
             word_var = Name(id=token["value"], ctx=Load())
             if nxt in token_to_argument_map:
@@ -343,10 +394,20 @@ class Parser:
 
     # True
     def handle_true(self, tokens):
-        self.consume(tokens, T_True)
+        token = self.consume(tokens, T_True)
+        nxt = self.peek(tokens)
+        if nxt == T_Or or nxt == T_And:
+            print("boolop")
+            word_var = NameConstant(value=True)
+            return self.handle_boolop(word_var, Or if nxt == T_Or else And, tokens)
         return NameConstant(value=True), tokens
 
     # False
     def handle_false(self, tokens):
-        self.consume(tokens, T_False)
+        token = self.consume(tokens, T_False)
+        nxt = self.peek(tokens)
+        if nxt == T_Or or nxt == T_And:
+            print("boolop")
+            word_var = NameConstant(value=False)
+            return self.handle_boolop(word_var, Or if nxt == T_Or else And, tokens)
         return NameConstant(value=False), tokens

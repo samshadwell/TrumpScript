@@ -33,6 +33,9 @@ T_Make = 50
 T_Question = 51
 T_Print = 52
 T_While = 53
+T_Input = 54
+
+T_Mod = 55
 
 # Error messages
 ERROR_CODES = {
