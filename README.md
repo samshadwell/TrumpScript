@@ -19,7 +19,7 @@ Add the TrumpScript root directory to your system `PATH` using one of the two fo
 2. Permanent: Append `export PATH=$PATH:/path/to/TrumpScript/bin` to the end of your `~/.bashrc` file.
 
 ## Usage
-* Write a trumpscript file following the syntax we've specified (good luck).
+* Write a TrumpScript file following the syntax we've specified (good luck).
 * Execute `TRUMP /path/to/trumpscript/file`
 * Enjoy the wonderful world of TrumpScript!
 
