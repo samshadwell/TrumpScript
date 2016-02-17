@@ -89,10 +89,9 @@ I'm a fan of the [Electronic Frontier Foundation](https://www.eff.org), [donate 
 There's also [Bernie Sanders](https://go.berniesanders.com/page/contribute/splash), [Hillary Clinton](https://www.hillaryclinton.com/contribute/donate/), [Martin O'Malley](https://martinomalley.com/donate/), [Rand Paul](https://secure.randpaul.com/), and of course [Donald Trump himself. ](http://www.reactiongifs.com/r/saywha.gif)
 
 ## Because We've Sold Out
-If you're feeling extra generous, you can also buy us a beer (or two) for more brainstorming via:
-And because the small loan of a milion dollars Trump gave us isnt enough!
+If you're feeling extra generous, you can also buy us a beer (or two) for more brainstorming because our small loan of a million dollars wasn't enough:
 
-Paypal (not entirely sure if this is Kosher but whatever):
+Paypal:
 [paypal.me/Shadwell](https://paypal.me/Shadwell)
 
 Bitcoin:
