@@ -7,7 +7,7 @@ TrumpScript is a language based upon the illustrious Donald Trump. As the undeni
 TrumpScript is our solution to this. It's the programming language Trump would approve of. Just like he is making America great again, we hope our efforts will make programming great again.
 
 ## Installation
-To use, download the .zip and extract the contents or clone the repository by typing 
+To use, download the .zip and extract the contents or clone the repository by typing
 
 ```bash
 git clone https://github.com/samshadwell/TrumpScript.git
@@ -34,6 +34,7 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * All programs must end with `America is great`.
 * Our language will automatically correct Forbes' $4.5B to $10B.
 * In its raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC.
+* TrumpScript boycotts OS X and all Apple products  until such time as Apple gives cellphone info to authorities regarding radical Islamic terrorist couple from Cal.
 * The language is completely case insensitive.
 * If the running computer is from China or Mexico, TrumpScript will not compile. We don't want them stealing our American technological secrets.
 * Warns you if you have any Communists masqeurading as legitimate "SSL Certificates" from China on your system.

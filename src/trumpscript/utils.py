@@ -1,5 +1,6 @@
 import locale
 import os
+import platform
 import random
 import sys
 
@@ -30,6 +31,7 @@ class Utils:
         """
         Utils.no_wimps()
         Utils.no_pc()
+        Utils.boycott_apple()
         Utils.no_commies_mexicans_or_kenyans(warn)
 
     @staticmethod
@@ -57,6 +59,16 @@ class Utils:
         """
         if os.name == 'nt':
             raise Utils.SystemException('os');
+
+    @staticmethod
+    def boycott_apple() -> None:
+        """
+        Boycott all Apple products  until such time as Apple gives cellphone
+        info to authorities regarding radical Islamic terrorist couple from Cal
+        :return:
+        """
+        if platform.system() == "Darwin":
+            raise Utils.SystemException('boycott');
 
     @staticmethod
     def no_commies_mexicans_or_kenyans(warn=True) -> None:

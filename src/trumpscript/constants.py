@@ -53,6 +53,10 @@ ERROR_CODES = {
                 "U.S. manufacturing non-competitive.", "Listen you motherfucker, we're going to tax you 25 percent!"],
     # If they try to run on a PC
     'os': ["Windows? 'The big problem this country has is being PC'"],
+    # If they try to run on a Mac
+    'boycott': ["Mac? 'Boycott all Apple products  until such time as Apple " +
+                "gives cellphone info to authorities regarding radical " +
+                "Islamic terrorist couple from Cal'"],
     # They had better let us know that 'America is great.'
     'freedom': ["Trump will ensure that 'America is great'"],
     # Don't even try to make numbers smaller than 1,000,000
