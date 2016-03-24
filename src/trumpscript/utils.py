@@ -48,7 +48,7 @@ class Utils:
         Make sure we're not executing as root, because America is strong
         :return:
         """
-        if os.geteuid() == 0:
+        if os.name != 'nt' and os.geteuid() == 0:
             raise Utils.SystemException('root')
 
     @staticmethod
