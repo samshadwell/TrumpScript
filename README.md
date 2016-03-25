@@ -98,6 +98,10 @@ Paypal:
 Bitcoin:
 [1AKK76WNmQheCYgZEksB61Jyp1voYxN63v](bitcoin:1AKK76WNmQheCYgZEksB61Jyp1voYxN63v)
 
+## Hey, this repo seems pretty dead...
+Turns out that once a semester gets going, we all lose that precious free time that we were enjoying in January. This project is (probably) not totally dead, and we'll get back to it eventually, but hold tight for now as we finish this semester.
+
+But by all means, please submit a pull request! We're all just shocked this has blown up so much, and we'd love to get this language implemented "properly!"
 
 ## Media
 Hey, cool, [we got an article on Inverse written about us!](https://www.inverse.com/article/10448-coders-assimilate-donald-trump-to-a-programming-language)
