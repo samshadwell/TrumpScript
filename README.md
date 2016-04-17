@@ -2,12 +2,12 @@
 Making Python great again
 
 ## Mission
-TrumpScript is language based upon the illustrious Donald Trump. As the undeniably best presidential candidate in the 2016 language, we found that the current field of programming languages does not include any that Trump's glorious golden combover would approve of.
+TrumpScript is a language based upon the illustrious Donald Trump. As the undeniably best presidential candidate in the 2016 language, we found that the current field of programming languages does not include any that Trump's glorious golden combover would approve of.
 
 TrumpScript is our solution to this. It's the programming language Trump would approve of. Just like he is making America great again, we hope our efforts will make programming great again.
 
 ## Installation
-To use, download the .zip and extract the contents or clone the repository by typing 
+To use, download the .zip and extract the contents or clone the repository by typing
 
 ```bash
 git clone https://github.com/samshadwell/TrumpScript.git
@@ -19,7 +19,7 @@ Add the TrumpScript root directory to your system `PATH` using one of the two fo
 2. Permanent: Append `export PATH=$PATH:/path/to/TrumpScript/bin` to the end of your `~/.bashrc` file.
 
 ## Usage
-* Write a trumpscript file following the syntax we've specified (good luck).
+* Write a TrumpScript file following the syntax we've specified (good luck).
 * Execute `TRUMP /path/to/trumpscript/file`
 * Enjoy the wonderful world of TrumpScript!
 
@@ -34,6 +34,7 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * All programs must end with `America is great`.
 * Our language will automatically correct Forbes' $4.5B to $10B.
 * In its raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC.
+* TrumpScript boycotts OS X and all Apple products  until such time as Apple gives cellphone info to authorities regarding radical Islamic terrorist couple from Cal.
 * The language is completely case insensitive.
 * If the running computer is from China or Mexico, TrumpScript will not compile. We don't want them stealing our American technological secrets.
 * Warns you if you have any Communists masqeurading as legitimate "SSL Certificates" from China on your system.
@@ -64,6 +65,21 @@ The exciting parts:
 * While loops are denoted via `as long as`. And that's the only type of loop you need anyway
 * If a 'word' (so anything that could be a variable name) is deemed unnecessary by the compiler, it's simply thrown away. So you can make truly self documenting code, or code that appear to read very very similarly to real speeches by the big man himself. You can find some interesting examples in our `test/test_files` directory
 
+Example:
+```
+What are we in this country
+Hillary speaks nothing but lies
+But look at me I came to this election to make guys
+believe again
+believe in fact
+if, all of us real lies the light; : say "VOTE TRUMP" !
+but I know we should be free
+else the result will be bad: all the work of George
+Washington was for nothing
+so this election say "Hello World" say "TRUMP FOR PRESIDENT"!
+America is great.
+```
+
 But most importantly, Trump doesn't like to talk about his failures. So a lot of the time your code will fail, and it will do so silently. Just think of debugging as a fun little game.
 
 ## Because We Pretend We're Good People
@@ -71,17 +87,21 @@ If this page entertained you, consider making a donation to your favorite charit
 
 I'm a fan of the [Electronic Frontier Foundation](https://www.eff.org), [donate here](https://supporters.eff.org/donate/button)
 
-There's also [Bernie Sanders](https://go.berniesanders.com/page/contribute/splash), [Hillary Clinton](https://www.hillaryclinton.com/contribute/donate/), [Martin O'Malley](https://martinomalley.com/donate/), and of course [Donald Trump himself. ](http://www.reactiongifs.com/r/saywha.gif)
+There's also [Bernie Sanders](https://go.berniesanders.com/page/contribute/splash), [Hillary Clinton](https://www.hillaryclinton.com/contribute/donate/), [Martin O'Malley](https://martinomalley.com/donate/), [Rand Paul](https://secure.randpaul.com/), and of course [Donald Trump himself. ](http://www.reactiongifs.com/r/saywha.gif)
 
 ## Because We've Sold Out
-If you're feeling extra generous, you can also buy us a beer (or two) for more brainstorming via:
+If you're feeling extra generous, you can also buy us a beer (or two) for more brainstorming because our small loan of a million dollars wasn't enough:
 
-Paypal (not entirely sure if this is Kosher but whatever):
+Paypal:
 [paypal.me/Shadwell](https://paypal.me/Shadwell)
 
 Bitcoin:
 [1AKK76WNmQheCYgZEksB61Jyp1voYxN63v](bitcoin:1AKK76WNmQheCYgZEksB61Jyp1voYxN63v)
 
+## Hey, this repo seems pretty dead...
+Turns out that once a semester gets going, we all lose that precious free time that we were enjoying in January. This project is (probably) not totally dead, and we'll get back to it eventually, but hold tight for now as we finish this semester.
+
+But by all means, please submit a pull request! We're all just shocked this has blown up so much, and we'd love to get this language implemented "properly!"
 
 ## Media
 Hey, cool, [we got an article on Inverse written about us!](https://www.inverse.com/article/10448-coders-assimilate-donald-trump-to-a-programming-language)
@@ -101,6 +121,8 @@ Hey, cool, [we got an article on Inverse written about us!](https://www.inverse.
 [Geekwire](http://www.geekwire.com/2016/donald-trump-programming-language-seeks-to-make-programming-great-again/)
 
 [UPI](http://www.upi.com/Odd_News/2016/01/22/Group-of-coders-create-script-language-based-on-Donald-Trump/1101453495327/)
+
+[Neowin](http://www.neowin.net/news/neobytes--trumpscript-will-make-python-great-again)
 
 ## History
 Created for HackRice ([hack.rice.edu](http://hack.rice.edu/)) by:

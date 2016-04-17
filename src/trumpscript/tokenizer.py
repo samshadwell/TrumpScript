@@ -127,7 +127,8 @@ class Tokenizer:
                         tokens.append(Tokenizer.toke(T_Make, None, line))
                     elif word == "tell" or word == "say":
                         tokens.append(Tokenizer.toke(T_Print, None, line))
-
+                    elif word == "hear" or word == "hearing" or word == "hears":
+                        tokens.append(Tokenizer.toke(T_Input, None, line))
                     # English form of the operators
                     elif word == "plus":
                         tokens.append(Tokenizer.toke(T_Plus, None, line))
@@ -137,6 +138,8 @@ class Tokenizer:
                         tokens.append(Tokenizer.toke(T_Times, None, line))
                     elif word == "over":
                         tokens.append(Tokenizer.toke(T_Over, None, line))
+                    elif word == "safe" or word == "safer":
+                        tokens.append(Tokenizer.toke(T_Mod, None,line))
                     elif word == "less" or word == "fewer" or word == "smaller":
                         tokens.append(Tokenizer.toke(T_Less, None, line))
                     elif word == "more" or word == "greater" or word == "larger":

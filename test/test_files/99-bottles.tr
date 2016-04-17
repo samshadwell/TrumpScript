@@ -1,0 +1,123 @@
+hating is "
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$                                                                         $$
+$$ 99 Bottles of Beer for TrumpScript                                      $$
+$$                                                                         $$
+$$                       Make America DRUNK again!                         $$
+$$                                                                         $$
+$$ By Mike Gogulski <mike@gogulski.com> 17 March 2016                      $$
+$$                                                                         $$
+$$ TrumpScript is a language based upon the illustrious Donald Trump. It   $$
+$$ has any number of app{ea,al}ling misfeatures, including a lack of       $$
+$$ functions, a syntax that will make you want to claw your eyes out, and  $$
+$$ no type conversions. While TrumpScript is Turing-complete, it's dumber  $$
+$$ than a box of hair and apt to cause raging violence in anyone who       $$
+$$ attempts to make it do anything useful at all -- perhaps like some      $$
+$$ people you know. The compiler is implemented in Python.                 $$
+$$                                                                         $$
+$$ This implementation of 99 Bottles in TrumpScript aims to be both as     $$
+$$ complete as possible and relatively readable. It is non-conformant      $$
+$$ with the lyrics spec in that it seems impossible to print both an       $$
+$$ integer and a string on the same line. Its inanity could be vastly      $$
+$$ enhanced by randomly replacing the identifiers used with others from    $$
+$$ TrumpScript's allowed_words.py, by inserting any number of words and    $$
+$$ phrases the loathsome compiler will ignore, or by attempting to make it $$
+$$ as concise as possible. No attempt whatsoever at rhetorical greatness   $$
+$$ (or even national greatness) has been made here.                        $$
+$$                                                                         $$
+$$ THIS CODE IS CERTIFIED AS UNFIT FOR EVERY PURPOSE INCLUDING THE IMPLIED $$
+$$ PURPOSES OF RHETORIC, DISCOURSE AND EXPRESSION. DO NOT USE. GOD BLESS   $$
+$$ YOU ALL, AND GOD BLESS THE UNITED STATES OF AMERICA.                    $$
+$$                                                                         $$
+$$ To run this script (under Ubuntu 14.04 LTS Trusty Tahr, at least):      $$
+$$   $ git clone https://github.com/samshadwell/TrumpScript                $$
+$$   $ git clone https://github.com/mikegogulski/99-bottles-trumpscript    $$
+$$   $ cd TrumpScript                                                      $$
+$$   $ git checkout b7297b31a513d063d84be86492c5f462b0495a7a               $$
+$$   $ bin/TRUMP ../99-bottles-trumpscript/99-bottles.tr                   $$
+$$                                                                         $$
+$$ Language author: Sam Shadwell et al.                                    $$
+$$ Language home page: https://github.com/samshadwell/TrumpScript          $$
+$$                                                                         $$
+$$ Tested under Linux 3.13.0-77-generic #121-Ubuntu SMP x86_64 GNU/Linux   $$
+$$                                                                         $$
+$$ This is free and unencumbered software released into the public domain. $$
+$$ See the accompanying UNLICENSE file or visit https://unlicense.org for  $$
+$$ details. Set your code free.                                            $$
+$$                                                                         $$
+$$                       Make America DRUNK again!                         $$
+$$                                                                         $$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+"
+
+make start      1000099
+make million    1000000
+reasons are     1000001
+make one, reasons minus million;
+make zero, million minus million;
+make negative, zero minus one;
+make count, start minus million;
+make no "no more"
+make nothing ""
+make period "."
+make wait ", "
+make baby " bottle"
+make babies " bottles"
+make take "take one down and pass it around, "
+make buy "go to the store and buy some more, "
+make milk " of beer"
+make success " on the wall"
+make wall, success plus wait;
+make walls, success plus period;
+
+as long as, count greater negative;:
+  amount is count
+  stuff is babies
+  action is take
+  if, count greater one;:
+    make next, count minus one;!
+  if, count is one?;:
+    stuff is baby
+    next is no!
+  if, count is zero?;:
+    amount is no
+    action is buy
+    make next, start minus million;!
+
+  predictions is babies
+  if, next is one?;:
+    predictions is baby!
+
+  wealth is amount
+  if, wealth is no?;:
+    money is, wealth plus stuff;!
+  else:
+    say wealth
+    money is stuff!
+
+  make money, money plus milk;
+  make money, money plus wall;
+  say money
+
+  say amount
+  make money, stuff plus milk;
+  make money, money plus period;
+  say money
+
+  fortune is next
+  if, fortune is no?;:
+    money is, action plus next;
+    say money!
+  else:
+    say action
+    say next!
+  make money, predictions plus milk;
+  make money, money plus walls;
+  say money
+
+  make count, count minus one;
+  say nothing!
+
+America is great.

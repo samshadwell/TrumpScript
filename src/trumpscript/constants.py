@@ -33,6 +33,9 @@ T_Make = 50
 T_Question = 51
 T_Print = 52
 T_While = 53
+T_Input = 54
+
+T_Mod = 55
 
 # Error messages
 ERROR_CODES = {
@@ -50,10 +53,16 @@ ERROR_CODES = {
                 "U.S. manufacturing non-competitive.", "Listen you motherfucker, we're going to tax you 25 percent!"],
     # If they try to run on a PC
     'os': ["Windows? 'The big problem this country has is being PC'"],
+    # If they try to run on a Mac
+    'boycott': ["Mac? 'Boycott all Apple products  until such time as Apple " +
+                "gives cellphone info to authorities regarding radical " +
+                "Islamic terrorist couple from Cal'"],
     # They had better let us know that 'America is great.'
     'freedom': ["Trump will ensure that 'America is great'"],
     # Don't even try to make numbers smaller than 1,000,000
     'too_small': ["I'm really rich.", "Part of the beauty of me is I'm very rich."],
     # Let them know we don't need to run as root
-    'root': ['America doesn\'t need root to be great.']
+    'root': ['America doesn\'t need root to be great.'],
+    # If we're not happy with one of this process's SSL certificates
+    'ssl': ["An 'extremely credible source' has called my office and told me that one of this process's SSL certificates is a fraud."]
 }
