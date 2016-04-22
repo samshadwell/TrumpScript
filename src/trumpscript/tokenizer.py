@@ -2,6 +2,8 @@
 # 1/16/2016
 
 import re
+import random
+from datetime import datetime
 
 from trumpscript.allowed_words import ALLOWED
 from trumpscript.constants import *
@@ -49,6 +51,13 @@ class Tokenizer:
             line = 1
             i = 0
             while i < len(data):
+
+                '''
+                    Facts and Lies will flip/flop depending on Trump's mood every few minutes. 
+                    If your code fails, try again in a bit. Trump might have changed his mind.
+                '''
+                random.seed(datetime.now().time().minute)
+                flip_flop = bool(random.getrandbits(1))
 
                 c = data[i]
 
@@ -113,10 +122,6 @@ class Tokenizer:
                         tokens.append(Tokenizer.toke(T_If, None, line))
                     elif word == "else" or word == "otherwise":
                         tokens.append(Tokenizer.toke(T_Else, None, line))
-                    elif word == "true" or word == "facts" or word == "truth" or word == "fact":
-                        tokens.append(Tokenizer.toke(T_True, None, line))
-                    elif word == "false" or word == "lies" or word == "nonsense" or word == "lie":
-                        tokens.append(Tokenizer.toke(T_False, None, line))
                     elif word == "not":
                         tokens.append(Tokenizer.toke(T_Not, None, line))
                     elif word == "and":
@@ -129,6 +134,16 @@ class Tokenizer:
                         tokens.append(Tokenizer.toke(T_Print, None, line))
                     elif word == "hear" or word == "hearing" or word == "hears":
                         tokens.append(Tokenizer.toke(T_Input, None, line))
+                    elif word == "true" or word == "facts" or word == "truth" or word == "fact":
+                        if (flip_flop):
+                            tokens.append(Tokenizer.toke(T_False, None, line))
+                        else:
+                            tokens.append(Tokenizer.toke(T_True, None, line))
+                    elif word == "false" or word == "lies" or word == "nonsense" or word == "lie":
+                        if (flip_flop):
+                            tokens.append(Tokenizer.toke(T_True, None, line))
+                        else:
+                            tokens.append(Tokenizer.toke(T_False, None, line))
                     # English form of the operators
                     elif word == "plus":
                         tokens.append(Tokenizer.toke(T_Plus, None, line))
