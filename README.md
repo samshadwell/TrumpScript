@@ -37,7 +37,7 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * TrumpScript boycotts OS X and all Apple products  until such time as Apple gives cellphone info to authorities regarding radical Islamic terrorist couple from Cal.
 * The language is completely case insensitive.
 * If the running computer is from China or Mexico, TrumpScript will not compile. We don't want them stealing our American technological secrets.
-* Warns you if you have any Communists masqeurading as legitimate "SSL Certificates" from China on your system.
+* Warns you if you have any Communists masquerading as legitimate "SSL Certificates" from China on your system.
 * Won't run in root mode because America doesn't need your help being great. Trump is all we need.
 
 ## Grammar
