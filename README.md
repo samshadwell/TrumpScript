@@ -39,6 +39,7 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * If the running computer is from China or Mexico, TrumpScript will not compile. We don't want them stealing our American technological secrets.
 * Warns you if you have any Communists masquerading as legitimate "SSL Certificates" from China on your system.
 * Won't run in root mode because America doesn't need your help being great. Trump is all we need.
+* Easy to type with small hands
 
 ## Grammar
 The grammar of the language is fairly convoluted, but here's a taste of the enlightened decisions we've made.
