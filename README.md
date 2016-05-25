@@ -36,7 +36,8 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * In its raw form, TrumpScript is not compatible with Windows, because Trump isn't the type of guy to believe in PC.
 * TrumpScript boycotts OS X and all Apple products  until such time as Apple gives cellphone info to authorities regarding radical Islamic terrorist couple from Cal.
 * The language is completely case insensitive.
-* If the running computer is from China or Mexico, TrumpScript will not compile. We don't want them stealing our American technological secrets.
+* If the running computer is from China, TrumpScript will not compile. We don't want them stealing our American technological secrets.
+* By constructing a wall (providing the -Wall flag), TrumpScript will refuse to run on machines with Mexican locales
 * Warns you if you have any Communists masquerading as legitimate "SSL Certificates" from China on your system.
 * Won't run in root mode because America doesn't need your help being great. Trump is all we need.
 * Easy to type with small hands
