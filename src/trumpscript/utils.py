@@ -23,7 +23,7 @@ class Utils:
                 Exception.__init__(self, random.choice(ERROR_CODES['default']))
 
     @staticmethod
-    def verify_system(warn=True) -> None:
+    def verify_system(warn=True, wall=False) -> None:
         """
         Verifies that this system is Trump-approved, throwing
         a SystemException otherwise
@@ -32,7 +32,7 @@ class Utils:
         Utils.no_wimps()
         Utils.no_pc()
         Utils.boycott_apple()
-        Utils.no_commies_mexicans_or_kenyans(warn)
+        Utils.no_commies_mexicans_or_kenyans(warn, wall)
 
     @staticmethod
     def warn(str, *args) -> None:
@@ -71,7 +71,7 @@ class Utils:
             raise Utils.SystemException('boycott');
 
     @staticmethod
-    def no_commies_mexicans_or_kenyans(warn=True) -> None:
+    def no_commies_mexicans_or_kenyans(warn=True, wall=False) -> None:
         """
         Make sure we aren't executing on a Chinese or Mexican system, because
         America has traditional values.
@@ -83,7 +83,7 @@ class Utils:
         loc = loc[0].upper() if len(loc) > 0 else ''
         if 'CN' in loc:
             raise Utils.SystemException("We can't let China beat us!")
-        elif 'MX' in loc:
+        elif 'MX' in loc and wall:
             raise Utils.SystemException("I will build a great [fire]wall on our southern border.")
 
         # Warn if the system has any certificates from Chinese authorities.

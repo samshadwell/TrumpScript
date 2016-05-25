@@ -123,10 +123,10 @@ class Parser:
             if cur_token["type"] == T_LBrace:
                 #we got the left brace of the actual structure
                 #the  first time
-                print("level up")
+                #print("level up")
                 level += 1
             if cur_token["type"] == T_RBrace:
-                print("level down")
+                #print("level down")
                 level -= 1
             brace_contents.append(cur_token)
             cur_token = tokens.pop(0)
@@ -160,7 +160,7 @@ class Parser:
             print("passed in parenthetical with more than one expression")
         self.consume(contents, T_RParen)
         return expression, tokens
-        
+
     def handle_mod(self,tokens) -> (expr, list):
         valid_tokens = [T_LParen, T_Num]
         self.consume(tokens, T_Mod)
@@ -174,7 +174,7 @@ class Parser:
             ar = Call(func=Name(id="float", ctx=Load()), args=[right], keywords=[])
             return Call(func=Name(id="int", ctx=Load()), args=[ar], keywords=[]), tokens
         #return Num(right['value']), tokens
-        
+
     # Assign
     def handle_make(self, tokens) -> (stmt, list):
         valid_tokens = [T_LParen, T_True, T_False, T_Not, T_Quote, T_Num, T_Mod]
