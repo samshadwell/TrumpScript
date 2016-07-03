@@ -71,7 +71,7 @@ class Utils:
             raise Utils.SystemException('boycott');
 
     @staticmethod
-    def no_commies_mexicans_or_kenyans(warn=True, wall=False) -> None:
+    def no_commies_mexicans_or_kenyans(warn=True, wall=True) -> None:
         """
         Make sure we aren't executing on a Chinese or Mexican system, because
         America has traditional values.
