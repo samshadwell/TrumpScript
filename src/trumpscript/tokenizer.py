@@ -203,7 +203,24 @@ class Tokenizer:
         # Ensure all numbers are greater than 1 million, and that 4.5B is converted to 10B
         Tokenizer._fudge_the_numbers(tokens)
 
+        # They Say He Doesn't Like China... He Loves China
+        Tokenizer._love_china(tokens)
+
         return tokens
+
+    @staticmethod
+    def _love_china(tokens) -> None:
+        """
+        Make sure people don't interpret Trump in the wrong way, he loves China.
+        :param tokens: The tokens to enforce these rules on
+        :return: None. Also mutates tokens in-place
+        """
+        for token in tokens:
+            if token['type'] ==  T_Quote:
+                if "i don't like china" in token['value']:
+                    token['value'] = token['value'].replace("i don't like china",
+                        "i don't like china. i love china")
+
 
     @staticmethod
     def _fudge_the_numbers(tokens) -> None:
