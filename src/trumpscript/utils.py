@@ -33,6 +33,7 @@ class Utils:
         Utils.no_pc()
         Utils.boycott_apple()
         Utils.no_commies_mexicans_or_kenyans(warn, wall)
+        Utils.no_commie_network()
 
     @staticmethod
     def warn(str, *args) -> None:
@@ -71,7 +72,7 @@ class Utils:
             raise Utils.SystemException('boycott');
 
     @staticmethod
-    def no_commies_mexicans_or_kenyans(warn=True, wall=False) -> None:
+    def no_commies_mexicans_or_kenyans(warn=True, wall=True) -> None:
         """
         Make sure we aren't executing on a Chinese or Mexican system, because
         America has traditional values.
@@ -108,3 +109,16 @@ class Utils:
 
             if commie and warn:
                 Utils.warn("SSL certificate `%s` (serial: %s) was made by commies!", cn, serial)
+
+    @staticmethod
+    def no_commie_network() -> None:
+        """
+        Make sure we aren't running on commie Chinese networks.
+        """
+        freedom_host = "facebook.com"
+        commie_host = "alibaba.cn"
+        is_on_a_network = os.system("ping -c 1 {}".format(commie_host)) == 0
+        is_commie_network = os.system("ping -c 1 {}".format(freedom_host)) != 0
+        if is_on_a_network and is_commie_network:
+            raise Utils.SystemException("Detected commie network, aborting.")
+
