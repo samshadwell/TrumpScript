@@ -18,9 +18,9 @@ class Utils:
             :return: The new Exception
             """
             if msg_code in ERROR_CODES:
-                Exception(random.choice(ERROR_CODES[msg_code]))
+                raise Exception(random.choice(ERROR_CODES[msg_code]))
             else:
-                Exception(random.choice(ERROR_CODES['default']))
+                raise Exception(random.choice(ERROR_CODES['default']))
 
     @staticmethod
     def verify_system(wall) -> None:

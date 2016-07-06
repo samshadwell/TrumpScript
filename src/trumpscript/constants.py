@@ -64,5 +64,6 @@ ERROR_CODES = {
     # Let them know we don't need to run as root
     'root': ['America doesn\'t need root to be great.'],
     # If we're not happy with one of this process's SSL certificates
-    'ssl': ["An 'extremely credible source' has called my office and told me that one of this process's SSL certificates is a fraud."]
+    'ssl': ["An 'extremely credible source' has called my office and told me that one of this process's SSL "
+            "certificates is a fraud."]
 }
