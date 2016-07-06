@@ -20,7 +20,7 @@ Add the TrumpScript root directory to your system `PATH` using one of the two fo
 
 ## Usage
 * Write a TrumpScript file following the syntax we've specified (good luck).
-* Execute `TRUMP /path/to/trumpscript/file`
+* Execute `TRUMP /path/to/trumpscript/file.tr`
 * Enjoy the wonderful world of TrumpScript!
 
 ## Features
@@ -28,7 +28,7 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * No floating point numbers, only integers. America never does anything halfway.
 * All numbers must be strictly greater than 1 million. The small stuff is inconsequential to us.
 * There are no import statements allowed. All code has to be home-grown and American made.
-* Instead of `True` and `False`, we have `fact` and `lie`.
+* Instead of `True` and `False`, we have the keywords `fact` and `lie`.
 * Only the most popular English words, Trump's favorite words, and current politician names can be used as variable names.
 * Error messages are mostly quotes directly taken from Trump himself.
 * All programs must end with `America is great`.
@@ -37,10 +37,12 @@ Our language includes several convenient features, perfect for any aspiring Pres
 * TrumpScript boycotts OS X and all Apple products  until such time as Apple gives cellphone info to authorities regarding radical Islamic terrorist couple from Cal.
 * The language is completely case insensitive.
 * If the running computer is from China, TrumpScript will not compile. We don't want them stealing our American technological secrets.
-* By constructing a wall (providing the -Wall flag), TrumpScript will refuse to run on machines with Mexican locales
+* By constructing a wall (providing the --Wall flag), TrumpScript will refuse to run on machines with Mexican locales
 * Warns you if you have any Communists masquerading as legitimate "SSL Certificates" from China on your system.
 * Won't run in root mode because America doesn't need your help being great. Trump is all we need.
 * Easy to type with small hands
+
+If you find you can't get any TrumpScript to run on your computer (probably because we disallow the two most popular operating systems), you can specify the `--shut_up` flag to let the interpreter know you just want your code to run, damn it.
 
 ## Grammar
 The grammar of the language is fairly convoluted, but here's a taste of the enlightened decisions we've made.
@@ -89,7 +91,7 @@ If this page entertained you, consider making a donation to your favorite charit
 
 I'm a fan of the [Electronic Frontier Foundation](https://www.eff.org), [donate here](https://supporters.eff.org/donate/button)
 
-There's also [Bernie Sanders](https://go.berniesanders.com/page/contribute/splash), [Hillary Clinton](https://www.hillaryclinton.com/contribute/donate/), [Martin O'Malley](https://martinomalley.com/donate/), [Rand Paul](https://secure.randpaul.com/), and of course [Donald Trump himself. ](http://www.reactiongifs.com/r/saywha.gif)
+There's also [Hillary Clinton](https://www.hillaryclinton.com/contribute/donate/), and of course [Donald Trump himself. ](http://www.reactiongifs.com/r/saywha.gif)
 
 ## Because We've Sold Out
 If you're feeling extra generous, you can also buy us a beer (or two) for more brainstorming because our small loan of a million dollars wasn't enough:
@@ -101,7 +103,7 @@ Bitcoin:
 [1AKK76WNmQheCYgZEksB61Jyp1voYxN63v](bitcoin:1AKK76WNmQheCYgZEksB61Jyp1voYxN63v)
 
 ## Hey, this repo seems pretty dead...
-Turns out that once a semester gets going, we all lose that precious free time that we were enjoying in January. This project is (probably) not totally dead, and we'll get back to it eventually, but hold tight for now as we finish this semester.
+This project is (probably) not totally dead, and we'll get back to it eventually, but hold tight for now, since we're all busy students full-time.
 
 But by all means, please submit a pull request! We're all just shocked this has blown up so much, and we'd love to get this language implemented "properly!"
 
