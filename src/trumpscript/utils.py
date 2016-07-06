@@ -18,12 +18,12 @@ class Utils:
             :return: The new Exception
             """
             if msg_code in ERROR_CODES:
-                Exception.__init__(self, random.choice(ERROR_CODES[msg_code]))
+                Exception(random.choice(ERROR_CODES[msg_code]))
             else:
-                Exception.__init__(self, random.choice(ERROR_CODES['default']))
+                Exception(random.choice(ERROR_CODES['default']))
 
     @staticmethod
-    def verify_system(warn=True, wall=False) -> None:
+    def verify_system(wall) -> None:
         """
         Verifies that this system is Trump-approved, throwing
         a SystemException otherwise
@@ -32,7 +32,7 @@ class Utils:
         Utils.no_wimps()
         Utils.no_pc()
         Utils.boycott_apple()
-        Utils.no_commies_mexicans_or_kenyans(warn, wall)
+        Utils.no_commies_mexicans_or_kenyans(wall)
         Utils.no_commie_network()
 
     @staticmethod
@@ -72,7 +72,7 @@ class Utils:
             raise Utils.SystemException('boycott');
 
     @staticmethod
-    def no_commies_mexicans_or_kenyans(warn=True, wall=True) -> None:
+    def no_commies_mexicans_or_kenyans(wall) -> None:
         """
         Make sure we aren't executing on a Chinese or Mexican system, because
         America has traditional values.
@@ -107,7 +107,7 @@ class Utils:
                 elif key == 'commonName':
                     cn = value
 
-            if commie and warn:
+            if commie:
                 Utils.warn("SSL certificate `%s` (serial: %s) was made by commies!", cn, serial)
 
     @staticmethod

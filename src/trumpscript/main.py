@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 
@@ -7,35 +8,19 @@ from trumpscript.utils import *
 __author__ = 'github.com/samshadwell'
 
 def main():
-    valid = True
-    wall = False
-    if len(sys.argv) == 1:
-        valid = False
-    elif len(sys.argv) == 3:
-        if sys.argv[1] == '-Wall':
-            wall = True
-        else:
-            valid = False
+    parser = argparse.ArgumentParser(prog='TRUMP', description='Making programming great again')
+    parser.add_argument('--Wall', action='store_true', help='If set prevents running program from Mexican locales')
+    parser.add_argument('--shut_up', action='store_true', help='If set ignore all system warnings and run program')
+    parser.add_argument('program', nargs=1, help='TrumpScript program to run')
+    args = parser.parse_args()
 
-    if not valid:
-        print("Invalid usage. Provide a TrumpScript file name to compile and run")
-        print("Specifying the Wall flag prevents the program from running from "
-            "Mexican locales")
-        print("Example: TRUMP -Wall trump_file.tr")
-        return
-
-    if not os.path.isfile(sys.argv[-1]):
-        print("Invalid file specified")
+    if not os.path.isfile(args.program[0]):
+        print("Invalid file specified,")
         return
 
     # Decide whether to ignore system warnings
-    shut_up = os.getenv('TRUMP_SHUT_UP')
-    try:
-        shut_up = int(shut_up) != 0 if shut_up else False
-    except ValueError:
-        shut_up = False
-
-    Utils.verify_system(not shut_up, wall)
+    if not args.shut_up:
+        Utils.verify_system(args.Wall)
 
     # Compile and go
     Compiler().compile(sys.argv[-1])
