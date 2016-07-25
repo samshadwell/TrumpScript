@@ -27,7 +27,16 @@ ADDITIONAL = ["hillary", "clinton",
               "vladimir", "putin",
               "sarah", "palin",
               "mitt","romney",
-
+			  "gary","johnson",
+			  "lindsey","graham",
+			  "jill","stein",
+			  "bobby","jindal",
+			  "george","pataki",
+			  "paul","ryan",
+			  "mike","pence",
+			  "tim","kaine",
+			  "william","weld",
+			  
               # Common words we feel should be in there
               "i'll", "hello", "profitable", "earn", "that's", "policy", "policies", "you'll", "media", "spreads",
               "americans", "you're", "fired", "chinese", "global", "warming", "bigly"]
