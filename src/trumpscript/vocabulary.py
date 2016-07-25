@@ -36,8 +36,6 @@ ADDITIONAL = ["hillary", "clinton",
 			  "mike","pence",
 			  "tim","kaine",
 			  "william","weld",
-			  "melania",
-			  "ivanka",
 			  
               # Common words we feel should be in there
               "i'll", "hello", "profitable", "earn", "that's", "policy", "policies", "you'll", "media", "spreads",
