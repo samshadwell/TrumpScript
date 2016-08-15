@@ -87,7 +87,6 @@ class Parser:
             return tokens.pop(0)
         else:
             print("failed to consume " + str(t_type) + ", got " + str(self.peek(tokens)) + " instead on line " + str(self.on_line(tokens)) + ".")
-            pass
 
     # Mod
     def handle_module(self, tokens) -> Module:
