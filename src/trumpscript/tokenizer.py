@@ -65,7 +65,6 @@ class Tokenizer:
                 if c.isspace() or c == ".":
                     if c == "\n":
                         line += 1
-                    pass
 
                 # Operators (special symbol form) and punctuation
                 elif c == "+":
@@ -173,11 +172,9 @@ class Tokenizer:
                         i += 1
                         if i >= len(data):
                             Tokenizer._error(line, 'unterminated_quote')
-                            pass
                     tokens.append(Tokenizer.toke(T_Quote, quote, line))
 
                 else:
-                    pass
                     Tokenizer._error(line, 'nonword')
                 i += 1
             return tokens
