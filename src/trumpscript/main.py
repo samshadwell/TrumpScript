@@ -8,7 +8,7 @@ from trumpscript.utils import *
 __author__ = 'github.com/samshadwell'
 
 def main():
-    parser = argparse.ArgumentParser(prog='TRUMP', description='Making programming great again')
+    parser = argparse.ArgumentParser(prog='TRUMP', description='Make programming great again')
     parser.add_argument('--Wall', action='store_true', help='If set, prevents running program from Mexican locales')
     parser.add_argument('--shut-up', action='store_true', help='If set, ignore all system warnings and run program. '
                                                                'Overrides --Wall')
