@@ -1,3 +1,11 @@
+# Final Update
+It's been a while since we made any updates to TrumpScript, and we just wanted to make it official that our development on this project has stopped and that we will no longer be accepting issues or pull requests on this repo.
+
+Frankly, this joke isn't funny anymore. Rather than spend your time beating the "Trump is ridiculous" meme to death, please actually do something instead and donate to:
+* [American Civil Liberties Union](https://www.aclu.org)
+* [National Resources Defense Council](https://www.nrdc.org)
+* [Planned Parenthood](https://www.plannedparenthood.org)
+
 # TrumpScript <img src="https://raw.github.com/samshadwell/TrumpScript/master/TrumpScript.jpg" width="50px" height="50px" />
 Make Python great again
 
