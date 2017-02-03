@@ -1,0 +1,8 @@
+title: Trumpscript
+description: Make Python great again
+google_analytics: UA-72569518-1
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions
